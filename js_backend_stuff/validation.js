@@ -173,7 +173,6 @@ function product_register_validation()
 
 
          }
-
     }
     
   
