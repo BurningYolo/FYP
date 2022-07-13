@@ -79,6 +79,7 @@ if($func=="logout")
    
    echo "<script> location.href='/from_scratch/login.php?logout=1'; </script>";
 }
+
 if($func =="update")
 {
     $name=$_POST['username']; 
@@ -123,7 +124,132 @@ if($filename == null)
 }
 
 
+}
 
+
+if($func=="product_register")
+{
+    $check = 0 ; 
+    $name = $_POST['name']; 
+    $category = $_POST['category']; 
+    $location = $_POST['location']; 
+    $address = $_POST['address']; 
+    $description = $_POST['description']; 
+    $starting_price = $_POST['starting_price']; 
+    $goal_price= $_POST['goal_price']; 
+    $ending_time= $_POST['ending_time']; 
+    $approval = 0 ; 
+
+    $sql="INSERT INTO product_info (name,address,location,approval,description,start_price,goal_price,end_time,product_category_id,user_id) VALUES ('$name','$address','$location','$approval','$description','$starting_price','$goal_price','$ending_time','$category','$id')";
+
+    if(mysqli_query($conn,$sql))
+{
+    $check++; 
+    $last_id = $conn->insert_id;
+    if(isset($_POST['heading1']))
+    {
+       
+        $heading1 = $_POST['heading1']; 
+        $detail1 = $_POST['detail1']; 
+        $sql="INSERT INTO product_additional_info (product_id,heading,detail) VALUES ('$last_id','$heading1','$detail1')";
+        if(mysqli_query($conn,$sql))
+        {
+            $check++; 
+            if(isset($_POST['heading2']))
+            {
+             
+                $heading2 = $_POST['heading2']; 
+                $detail2 = $_POST['detail2']; 
+                $sql="INSERT INTO product_additional_info (product_id,heading,detail) VALUES ('$last_id','$heading2','$detail2')";
+                if(mysqli_query($conn,$sql))
+                {
+                    $check++; 
+                    if(isset($_POST['heading3']))
+                    {
+                      
+                        $heading3 = $_POST['heading3']; 
+                        $detail3 = $_POST['detail3']; 
+                        $sql="INSERT INTO product_additional_info (product_id,heading,detail) VALUES ('$last_id','$heading3','$detail3')";
+                        if(mysqli_query($conn,$sql))
+                        {
+                            $check++; 
+                            if(isset($_POST['heading4']))
+                            {
+                             
+                                $heading4 = $_POST['heading4']; 
+                                $detail4 = $_POST['detail4']; 
+                                $sql="INSERT INTO product_additional_info (product_id,heading,detail) VALUES ('$last_id','$heading4','$detail4')";
+                                if(mysqli_query($conn,$sql))
+                                {
+                                    $check++; 
+
+                                }
+                                else{
+
+                                }
+
+
+
+                            }
+                            else 
+                            {
+
+                            }
+
+
+                        }
+                        else{
+
+                        }
+
+                    }
+                    else{
+
+                    }
+
+                }
+                else{
+
+                }
+            }
+            else{
+
+            }
+            
+        }else{
+
+        }
+
+
+    }else{
+
+    }
+
+    foreach ($_FILES['upload']['name'] as $key => $name){
+  
+        $filename = time() . "_" . $name;
+        $folder = "../images/product_images/".$filename;
+        $directory = "images/product_images/".$filename;
+        echo $filename ; 
+        move_uploaded_file($_FILES['upload']['tmp_name'][$key], $folder);
+
+        $sql="INSERT INTO product_images (product_id,image) VALUES ('$last_id','$directory')";
+        if(mysqli_query($conn,$sql))
+        {
+            echo "<script> location.href='/from_scratch/main.php?product_register_success=1'; </script>";
+            
+        }
+
+  
+        
+    }
+
+    
+}
+else 
+{
+    echo "<script> location.href='/from_scratch/product_register.php?product_register_error=1'; </script>";
+}
 
 
 

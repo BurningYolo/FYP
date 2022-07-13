@@ -180,7 +180,7 @@ function product_register_validation()
 
    
     console.log(goal_price)
-    if(starting_price <= goal_price)
+    if(starting_price >= goal_price)
     {
         document.getElementById("starting_price_error").innerHTML = "(Starting Price is not Valid )";
         document.getElementById("starting_price").style.border = "solid 1px red"
