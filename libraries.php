@@ -16,6 +16,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyCdGv5cjpA0dMUCSolCf89tl_vgccGvsu0"></script>
+<script src="js_backend_stuff/actual_js.js"></script>
 <script src="js_backend_stuff/validation.js"></script>
 <script src="js_backend_stuff/popup.js"></script>
-<script src="js_backend_stuff/actual_js.js"></script>

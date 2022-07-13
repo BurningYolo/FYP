@@ -113,26 +113,107 @@ function update_profile_validation()
 
 }
 
+
+
+
+
+
+
 function product_register_validation()
 {
+    var check = true
     var name = document.getElementById("name").value 
-    console.log(name) 
     var category = document.getElementById("category").value
-    console.log(category)
-    var location = document.getElementById("location").value 
-    console.log(location)
     var address = document.getElementById("address").value 
-    console.log(address)
+    var location = document.getElementById("location").value 
     var description = document.getElementById("description").value 
-    console.log(description)
     var starting_price = document.getElementById("starting_price").value 
-    console.log(starting_price)
     var goal_price = document.getElementById("goal_price").value 
-    console.log(goal_price)
     var ending_time = document.getElementById("ending_time").value 
-    console.log(ending_time)
-    var i = 0 
+    back_to_normal() 
+    console.log(name) 
+    if(name.length<=3)
+    {
+        document.getElementById("name_error").innerHTML = "(Enter a Valid Username)";
+        document.getElementById("name").style.border = "solid 1px red" 
+
+        
+    }
     
+    console.log(category)
+    
+    console.log(location)
+    if(location.length<=3)
+    {
+        document.getElementById("location_error").innerHTML = "(Enter a Valid Location)";
+        document.getElementById("location").style.border = "solid 1px red"
+        check = false
+
+    }
+
+    
+    console.log(address)
+    if(address.length<=3)
+    {
+        document.getElementById("address_error").innerHTML = "(Enter a Valid Address)";
+        document.getElementById("address").style.border = "solid 1px red"
+        check = false
+    }
+    if(category=="base")
+
+    {
+        document.getElementById("category_error").innerHTML = "(Please Choose a Category)";
+        document.getElementById("category").style.border = "solid 1px red"
+        check = false
+    }
+
+    
+    console.log(description)
+    if(description.length<=3)
+    {
+        document.getElementById("description_error").innerHTML = "(Enter a Valid Description)";
+        document.getElementById("description").style.border = "solid 1px red"
+        check = false
+    }
+  
+    console.log(starting_price)
+
+   
+    console.log(goal_price)
+    if(starting_price <= goal_price)
+    {
+        document.getElementById("starting_price_error").innerHTML = "(Starting Price is not Valid )";
+        document.getElementById("starting_price").style.border = "solid 1px red"
+        check = false
+    }
+   
+  
+    var today=todays_date_formatting() 
+    var days= calculate_difference(today,ending_time)
+
+    if(days<10)
+    {
+        document.getElementById("ending_time_error").innerHTML = "(Should be minimum of 10 days)";
+        document.getElementById("ending_time").style.border = "solid 1px red"
+        check = false
+    }
+    
+     if(today>=ending_time)
+     {
+        document.getElementById("ending_time_error").innerHTML = "(Please Enter Valid Date)";
+        document.getElementById("ending_time").style.border = "solid 1px red"
+        check = false
+     }
+
+    
+
+
+
+
+
+
+
+
     var head1 = document.getElementById("heading1")
     if(head1)
     {
@@ -162,27 +243,83 @@ function product_register_validation()
                     console.log(heading4)
                     var detail4 = document.getElementById("detail4").value 
                     console.log(detail4)
-
                 }
-
-
-
-
             }
-
 
 
          }
     }
+
+    return check
     
+}
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+function todays_date_formatting()
+{
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1; // Months start at 0!
+    let dd = today.getDate();
+    
+    if (dd < 10) dd = '0' + dd;
+    if (mm < 10) mm = '0' + mm;
+    
+    var formattedToday = yyyy + '-' + mm + '-' + dd   ;
+
+    return formattedToday
+
+}
+
+function calculate_difference( formattedToday , ending_time)
+{
+    var date1 = new Date(formattedToday);
+    var date2 = new Date(ending_time);
   
-   
-    return false 
 
+var Difference_In_Time = date2.getTime() - date1.getTime();
+  
 
+var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
 
-    
-
+return Difference_In_Days
+  
 
 
 }
+
+function back_to_normal()
+{
+    document.getElementById("name_error").innerHTML = " ";
+    document.getElementById("name").style.border = "solid 1px silver"
+    document.getElementById("category_error").innerHTML = " ";
+    document.getElementById("category").style.border = "solid 1px silver"
+    document.getElementById("location_error").innerHTML = " ";
+    document.getElementById("location").style.border = "solid 1px silver"
+    document.getElementById("address_error").innerHTML = " ";
+    document.getElementById("address").style.border = "solid 1px silver"
+    document.getElementById("description_error").innerHTML = " ";
+    document.getElementById("description").style.border = "solid 1px silver"
+    document.getElementById("starting_price_error").innerHTML = " ";
+    document.getElementById("starting_price").style.border = "solid 1px silver"
+    document.getElementById("goal_price_error").innerHTML = " ";
+    document.getElementById("goal_price").style.border = "solid 1px silver"
+    document.getElementById("ending_time_error").innerHTML = " ";
+    document.getElementById("ending_time").style.border = "solid 1px silver"
+}
+
+

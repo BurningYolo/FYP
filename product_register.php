@@ -23,6 +23,10 @@ body {
     cursor: pointer;
     
 }
+#name_error , #address_error , #category_error , #location_error , #description_error , #starting_price_error , #goal_price_error , #ending_time_error
+{
+    color: red;
+}
 #product_image
 {
     width: 100%;
@@ -83,9 +87,9 @@ body {
                     <h4  style="color: green;"class="text-left">Basic Information</h4>
                 </div>
                 <div class="row mt-3">
-                    <div class="col-md-12"><label class="labels">Name<span id="name_error"></span></label><input type="text" class="form-control" name="name" id="name" placeholder="Enter Name"   ></div>
-                    <div class="col-md-12"><label class="labels">Category<span id="category_error"></span></label><select type="text" class="form-control" name="category" id="category" placeholder=" Choose Category"   >
-                        <option disabled selected> Select a category</option>
+                    <div class="col-md-12"><label class="labels">Name<span id="name_error"></span></label><input type="text" class="form-control" name="name" id="name" placeholder="Enter Name"  required ></div>
+                    <div class="col-md-12"><label class="labels">Category<span id="category_error"></span></label><select type="text" class="form-control" name="category" id="category" placeholder=" Choose Category" required  >
+                        <option disabled selected value="base"> Select a category</option>
                         <?php 
                          $sql="SELECT * from product_category ";
                          $result=(mysqli_query($conn, $sql));
@@ -102,8 +106,8 @@ body {
                          ?>
 
                     </select></div>
-                    <div class="col-md-12"><label class="labels">Location<span id="location_error"></span></label><input type="text" class="form-control" name="location" id="location" placeholder=" Enter Location "   ></div>       
-                    <div class="col-md-12"><label class="labels">Address<span id="address_error"></span></label><input type="text" class="form-control" name="address" id="address" placeholder=" Enter Address "   ></div>       
+                    <div class="col-md-12"><label class="labels">Location<span id="location_error"></span></label><input type="text" class="form-control" name="location" id="location" placeholder=" Enter Location " required  ></div>       
+                    <div class="col-md-12"><label class="labels">Address<span id="address_error"></span></label><input type="text" class="form-control" name="address" id="address" placeholder=" Enter Address "  required ></div>       
                 </div>
 
             </div>
@@ -114,7 +118,7 @@ body {
                     <h4  style="color: green;"class="text-left">Additional Information</h4>
                 </div>
                 <div class="row mt-3">
-                <div class="col-md-12"><label class="labels">Description<span id="description_error"></span></label><textarea rows="5" type="text" class="form-control" id="description" name="description" placeholder="Description" value=""></textarea></div>
+                <div class="col-md-12"><label class="labels">Description<span id="description_error"></span></label><textarea rows="5" type="text" class="form-control" id="description" name="description" placeholder="Description" value="" required></textarea></div>
 
                 <br>
                 <br>
@@ -131,9 +135,9 @@ body {
                     <h4  style="color: green;"class="text-left">Pricing Information </h4>
                 </div>
                 <div class="row mt-3">
-                    <div class="col-md-12"><label class="labels">Starting Price<span id="starting_price_error"></span></label><input type="number" class="form-control" name="starting_price" id="starting_price" placeholder="Enter Starting Price"   ></div>
-                    <div class="col-md-12"><label class="labels">Goal Price<span id="goal_price_error"></span></label><input type="number" class="form-control" name="goal_price" id="goal_price" placeholder="Enter Goal Price"    ></div>
-                    <div class="col-md-12"><label class="labels">Ending Time <span id="ending_time_error"></span></label><input type="datetime-local"  name="ending_time" class="form-control" id="ending_time"     placeholder="Enter Ending Time"  ></div>
+                    <div class="col-md-12"><label class="labels">Starting Price<span id="starting_price_error"></span></label><input type="number" class="form-control" name="starting_price" id="starting_price" placeholder="Enter Starting Price"   required></div>
+                    <div class="col-md-12"><label class="labels">Goal Price<span id="goal_price_error"></span></label><input type="number" class="form-control" name="goal_price" id="goal_price" placeholder="Enter Goal Price"  required  ></div>
+                    <div class="col-md-12"><label class="labels">Ending Time <span id="ending_time_error"></span></label><input type="date"  name="ending_time" class="form-control" id="ending_time"     placeholder="Enter Ending Time" required ></div>
                
                 </div>
 
@@ -147,7 +151,7 @@ body {
     <div class="col-md-4 ">
     <h4  style="color: green;"class="text-center">Product Pictures</h4>
 
-    <div class="col-md-12 p-4"><center><input style="width:90% ; background-color:rgb(173, 206, 173) ; color: black; cursor: pointer;" id="product_image" class="form-control"  name="product_image[]" type="file" accept="image/png, image/gif, image/jpeg" multiple   > </center> </div>
+    <div class="col-md-12 p-4"><center><input style="width:90% ; background-color:rgb(173, 206, 173) ; color: black; cursor: pointer;" id="product_image" class="form-control"  name="product_image[]" type="file" accept="image/png, image/gif, image/jpeg" multiple  required > </center> </div>
   
    <center> <div class="col-md-12 "><input type="submit" value="Register Product"></div> </center>
 
