@@ -93,8 +93,8 @@ background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);
             <ul class="navbar-nav ml-auto  ">
                 <li >
 
-                    <form class="d-flex" style="margin-top: 8px">
-                        <input class="form-control " type="search" placeholder="Search" aria-label="Search">
+                    <form action="search.php" method="POST"class="d-flex" style="margin-top: 8px">
+                        <input class="form-control " name="search" type="search" placeholder="Search" aria-label="Search" required>
                         <button class="btn btn-light " type="submit">Search</button>
                       </form>
                 </li>
