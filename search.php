@@ -22,6 +22,35 @@ $result=(mysqli_query($conn,$sql));
     body{
     background-color: #B0BEC5;
 }
+.container1 {
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+}
+.container1::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Style images */
+.container1 img {
+  float: left;
+  max-width: 60px;
+  width: 100%;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+
+/* Style the right image */
+.container1 img.right {
+  float: right;
+  margin-left: 20px;
+  margin-right:0;
+}
+
     </style>
 
 <div class="container mt-5 mb-5">
@@ -117,7 +146,7 @@ $result3=(mysqli_query($conn,$sql3));
                 ?>
                 <div class="col-md-4 mt-1 border-right "><center><img class="img-fluid img-responsive rounded-circle product-image" style="height: 150px ; width:200px"  src="<?php echo $user_image ?>"></center>
                 <center><h4><?php echo $user_name ?></h4></center>
-                <div class="d-flex flex-column mt-4"><button class="btn btn-primary btn-sm" id="<?php echo $user_id ?>" type="button" >Chat</button>
+                <div class="d-flex flex-column mt-4"><button class="btn btn-primary btn-sm" onclick="get_user_id(this,<?php echo $user_id;?>)" data-toggle="modal" data-target="#chat_modal" value="<?php echo $user_id ?>" id="chat_user<?php echo $user_id ?>" type="button" >Chat</button>
             
             
             
@@ -131,8 +160,61 @@ $result3=(mysqli_query($conn,$sql3));
                 }
     ?>
 </div>
+
 </form>
 
 </div>
+
+
+<div id="chat_modal"  class="modal fade">
+ <div class="modal-dialog">
+  <div class="modal-content">
+   <div class="modal-header">
+  <center><h4 class="modal-title">Chat</h4></center>
+    <button type="button" class="close" data-dismiss="modal">&times;</button>+
+   </div>
+
+
+
+   <div class="modal-body">
+     <input type="text" value=" " hidden id="chat_id" >
+     <div class="container1" style="background-color: rgb(167, 239, 167);">
+  <img src="images/user_images/stretched-1600-900-889928.png" alt="Avatar">
+  <p>Hello. How are you today?</p>
+  <span class="time">11:00</span>
+</div>
+
+
+     <div class="container1" style="background-color:rgb(143, 202, 143) ">
+  <img src="images/user_images/stretched-1600-900-889928.png" alt="Avatar">
+  <p>Hello. How are you today?</p>
+  <span class="">11:00</span>
+</div>
+
+   
+
+   </form>
+  
+   <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+   </div>
+  </div>
+ </div>
+</div>
+</div>
+<script>
+
+    function get_user_id(e,id)
+{
+    var id_val=$('#chat_user'+ id).val();
+    $('input[id="chat_id"]').val(id_val);
+    console.log(id_val);
+
+
+}
+
+    </script>
+
+
 
 

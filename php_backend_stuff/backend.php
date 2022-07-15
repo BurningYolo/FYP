@@ -230,13 +230,12 @@ if($func=="product_register")
         $filename = time() . "_" . $name;
         $folder = "../images/product_images/".$filename;
         $directory = "images/product_images/".$filename;
-        echo $filename ; 
         move_uploaded_file($_FILES['upload']['tmp_name'][$key], $folder);
 
         $sql="INSERT INTO product_images (product_id,image) VALUES ('$last_id','$directory')";
         if(mysqli_query($conn,$sql))
         {
-            echo "<script> location.href='/from_scratch/main.php?product_register_success=1'; </script>";
+            echo "<script> location.href='/from_scratch/product_page.php?search_result=$last_id&product_listed=1'; </script>";
             
         }
 

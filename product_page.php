@@ -42,6 +42,21 @@ body{
 
 img {
   max-width: 100%; }
+  
+.login_success
+{
+    
+        background-color: green;
+        color: white;
+        width: 100%;
+        height: auto;
+        text-align: center;
+        position: absolute;
+        z-index: 2;
+
+        
+
+}
 
 .preview {
   display: -webkit-box;
@@ -196,6 +211,19 @@ img {
     $sql1="SELECT * FROM product_images where product_id=$product_id ";
     $result1=(mysqli_query($conn,$sql1));
     $i=1; 
+?>
+<?php
+if(isset($_GET['product_listed']))
+{
+    ?>
+    <div class="login_success" id="login_success">
+    <p>Product Listed Successfully</p>
+
+</div>
+    <?php
+    unset($_GET['product_listed']); 
+}
+
 ?>
 
 
