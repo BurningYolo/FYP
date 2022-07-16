@@ -8,6 +8,7 @@ include("connection.php");
 
 
 $func = $_GET['func'] ?? 'null';
+$ajax_func= $_POST['ajax_func'] ??'null'; 
 
 if($func=="signup")
 {
@@ -248,6 +249,10 @@ if($func=="product_register")
 else 
 {
     echo "<script> location.href='/from_scratch/product_register.php?product_register_error=1'; </script>";
+    if(mysqli_query($conn,$sql))
+    {
+
+    }
 }
 
 
@@ -256,3 +261,59 @@ else
 }
 
 
+if($func == "message")
+{
+    $to_id = $_POST['to_id']; 
+    $from_id = $_POST['from_id']; 
+    $message = $_POST['msg']; 
+    $sql="INSERT INTO user_chat (to_user, from_user , msg) VALUES ('$to_id'  , '$from_id' , '$message')";
+    $result=(mysqli_query($conn,$sql));
+    if($result)
+    {
+        echo "POGCHAMP"; 
+    }
+
+}
+
+
+
+
+
+
+
+if($ajax_func == "something" )
+{
+    $to_id=$_POST['to_id']; 
+    $sql="Select * from user_info where id = '$to_id'"; 
+    $data=array(); 
+    $i=0; 
+    
+    
+    $result=(mysqli_query($conn,$sql));
+    while($row = mysqli_fetch_array($result))
+    {
+        $data['name'][$i]=$row['name']; 
+        $data['image'][$i]=$row['image'];
+        $i++;
+    }
+    echo json_encode($data); 
+}
+
+if($ajax_func == "get_chat" )
+{
+    $data = 123;
+    // $to_id=$_POST['to_id']; 
+    // $sql="Select * from user_info where id = '$to_id'"; 
+    // $data=array(); 
+    // $i=0; 
+    
+    
+    // $result=(mysqli_query($conn,$sql));
+    // while($row = mysqli_fetch_array($result))
+    // {
+    //     $data['name'][$i]=$row['name']; 
+    //     $data['image'][$i]=$row['image'];
+    //     $i++;
+    // }
+    echo json_encode($data); 
+}
