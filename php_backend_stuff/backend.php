@@ -145,86 +145,7 @@ if($func=="product_register")
 
     if(mysqli_query($conn,$sql))
 {
-    $check++; 
-    $last_id = $conn->insert_id;
-    if(isset($_POST['heading1']))
-    {
-       
-        $heading1 = $_POST['heading1']; 
-        $detail1 = $_POST['detail1']; 
-        $sql="INSERT INTO product_additional_info (product_id,heading,detail) VALUES ('$last_id','$heading1','$detail1')";
-        if(mysqli_query($conn,$sql))
-        {
-            $check++; 
-            if(isset($_POST['heading2']))
-            {
-             
-                $heading2 = $_POST['heading2']; 
-                $detail2 = $_POST['detail2']; 
-                $sql="INSERT INTO product_additional_info (product_id,heading,detail) VALUES ('$last_id','$heading2','$detail2')";
-                if(mysqli_query($conn,$sql))
-                {
-                    $check++; 
-                    if(isset($_POST['heading3']))
-                    {
-                      
-                        $heading3 = $_POST['heading3']; 
-                        $detail3 = $_POST['detail3']; 
-                        $sql="INSERT INTO product_additional_info (product_id,heading,detail) VALUES ('$last_id','$heading3','$detail3')";
-                        if(mysqli_query($conn,$sql))
-                        {
-                            $check++; 
-                            if(isset($_POST['heading4']))
-                            {
-                             
-                                $heading4 = $_POST['heading4']; 
-                                $detail4 = $_POST['detail4']; 
-                                $sql="INSERT INTO product_additional_info (product_id,heading,detail) VALUES ('$last_id','$heading4','$detail4')";
-                                if(mysqli_query($conn,$sql))
-                                {
-                                    $check++; 
 
-                                }
-                                else{
-
-                                }
-
-
-
-                            }
-                            else 
-                            {
-
-                            }
-
-
-                        }
-                        else{
-
-                        }
-
-                    }
-                    else{
-
-                    }
-
-                }
-                else{
-
-                }
-            }
-            else{
-
-            }
-            
-        }else{
-
-        }
-
-
-    }else{
-
-    }
 
     foreach ($_FILES['upload']['name'] as $key => $name){
   
@@ -254,11 +175,13 @@ else
 
     }
 }
-
-
-
-
 }
+
+
+
+
+
+
 
 
 if($func == "message")
@@ -316,4 +239,26 @@ if($ajax_func == "get_chat" )
     //     $i++;
     // }
     echo json_encode($data); 
+}
+
+if($ajax_func == "product_additional_info_tags")
+{
+    $output = "";
+    $product_category_id = $_POST['product_category_id']; 
+    $heading=array(); 
+    $i=0; 
+
+    $sql="SELECT * FROM product_additional_info_tags where product_category_id = '$product_category_id'"; 
+    $result=(mysqli_query($conn,$sql));
+    while($row=mysqli_fetch_array($result))
+    {
+        $heading[$i]=$row['headings']; 
+        $i++; 
+        $output.='                     <div class="col-md-12"><label class="labels">' .$row['headings'] . '</label><input type="number" min="1" max="100000000" class="form-control" name="heading' .$i . '"  placeholder="Enter ' .$row['headings'] . '" ></div>        '; 
+      
+
+    }
+    echo $output; 
+    
+
 }

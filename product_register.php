@@ -88,7 +88,7 @@ body {
                 </div>
                 <div class="row mt-3">
                     <div class="col-md-12"><label class="labels">Name<span id="name_error"></span></label><input type="text" class="form-control" name="name" id="name" placeholder="Enter Name" maxlength = "20" required ></div>
-                    <div class="col-md-12"><label class="labels">Category<span id="category_error"></span></label><select type="text" class="form-control" name="category" maxlength = "10" id="category" placeholder=" Choose Category" required  >
+                    <div class="col-md-12"><label class="labels">Category<span id="category_error"></span></label><select type="text" class="form-control" name="category" maxlength = "10" id="register_category" placeholder=" Choose Category" required  >
                         <option disabled selected value="base"> Select a category</option>
                         <?php 
                          $sql="SELECT * from product_category ";
@@ -107,25 +107,26 @@ body {
 
                     </select></div>
                     <div class="col-md-12"><label class="labels">Location<span id="location_error"></span></label><input type="text" maxlength = "40" class="form-control" name="location" id="location" placeholder=" Enter Location " required  ></div>       
+                    
                     <div class="col-md-12"><label class="labels">Address<span id="address_error"></span></label><input type="text"  maxlength = "40"class="form-control" name="address" id="address" placeholder=" Enter Address "  required ></div>       
+                    <div class="col-md-12 labels"><label>Description<span id="description_error"></span></label><textarea rows="5" type="text" maxlength = "200" class="form-control" id="description" name="description" placeholder="Description" value="" required></textarea></div>
+
                 </div>
 
             </div>
         </div>
            <div class="col-md-4 border-right" >
-            <div class="d-flex flex-column  p-3 py-5" id="additional_feilds">
+            <div class="d-flex flex-column  p-3 py-5" >
             <div class="d-flex justify-content-between  mb-3">
                     <h4  style="color: green;"class="text-left">Additional Information</h4>
                 </div>
-                <div class="row mt-3">
-                <div class="col-md-12"><label class="labels">Description<span id="description_error"></span></label><textarea rows="5" type="text" maxlength = "200" class="form-control" id="description" name="description" placeholder="Description" value="" required></textarea></div>
+                <div class="row mt-3" id="additional_fields">
+                    
 
-                <br>
-                <br>
-                <div class="col-md-12 p-4"><button class="form-control" id="additional_options_button" onclick="add_more_labels()">Add more Labels +</button></div>
               
                
-                </div>
+                
+            </div>
 
             </div>
         </div>
@@ -162,3 +163,63 @@ body {
     </div>
 </div>
 </form>
+
+<script>
+    $('#register_category').on('change',function(){
+        document.getElementById("additional_fields").innerHTML = " ";
+
+        
+        
+        var product_category_id = $('#register_category').val();
+        console.log(product_category_id)
+  $.ajax({
+    url:'php_backend_stuff/backend.php',
+    type:"POST", 
+    data:{
+     
+     ajax_func:"product_additional_info_tags",
+     product_category_id:product_category_id 
+
+
+    }, 
+    success:function(result)
+    {
+        document.getElementById("additional_fields").innerHTML = result;
+        console.log(result)
+        
+        // var obj = JSON.parse(result);
+        //     var res = [];
+              
+        //     for(var i in obj)
+        //         res.push(obj[i]);
+        //         console.log(obj[i])
+        //         if(obj[i] != null)
+        //         {
+        //         var div = []
+
+        //         div = document.createElement("div");
+        //         FN.setAttribute("class", "col-md-12");
+        //         var c = document.getElementById("additional_fields")
+        //         c.appendChild("additional_fields")
+        //         var FN = document.createElement("input");
+        //         FN.setAttribute("type", "text");
+        //         FN.setAttribute("name", "FullName");
+        //         FN.setAttribute("placeholder", "Full Name");
+
+
+        //         var cont = document.getElementById("div")
+        //         cont.appendChild("div")
+
+        //         }
+
+                
+       
+    }
+  
+  
+  })
+  
+
+  });
+
+</script>
