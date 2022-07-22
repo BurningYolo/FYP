@@ -319,6 +319,7 @@ function back_to_normal()
     document.getElementById("goal_price_error").innerHTML = " ";
     document.getElementById("goal_price").style.border = "solid 1px silver"
     document.getElementById("ending_time_error").innerHTML = " ";
+ 
     document.getElementById("ending_time").style.border = "solid 1px silver"
 }
 
