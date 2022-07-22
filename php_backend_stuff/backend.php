@@ -130,6 +130,7 @@ if($filename == null)
 
 if($func=="product_register")
 {
+
     $check = 0 ; 
     $name = $_POST['name']; 
     $category = $_POST['category']; 
@@ -140,42 +141,70 @@ if($func=="product_register")
     $goal_price= $_POST['goal_price']; 
     $ending_time= $_POST['ending_time']; 
     $approval = 0 ; 
+    $h=0; 
+    $sql = "SELECT * from product_additional_info_tags where product_category_id ='$category'"; 
+    $result=(mysqli_query($conn, $sql));
+                         
+    while($row=mysqli_fetch_array($result))
+    {
+        $details[$h]= $row['headings'];
+         
+        $h++; 
+    }
 
+
+
+ 
     $sql="INSERT INTO product_info (name,address,location,approval,description,start_price,goal_price,end_time,product_category_id,user_id) VALUES ('$name','$address','$location','$approval','$description','$starting_price','$goal_price','$ending_time','$category','$id')";
 
-    if(mysqli_query($conn,$sql))
+     if(mysqli_query($conn,$sql))
+ 
 {
-
-
-    foreach ($_FILES['upload']['name'] as $key => $name){
   
-        $filename = time() . "_" . $name;
-        $folder = "../images/product_images/".$filename;
-        $directory = "images/product_images/".$filename;
-        move_uploaded_file($_FILES['upload']['tmp_name'][$key], $folder);
+  
 
-        $sql="INSERT INTO product_images (product_id,image) VALUES ('$last_id','$directory')";
-        if(mysqli_query($conn,$sql))
-        {
-            echo "<script> location.href='/from_scratch/product_page.php?search_result=$last_id&product_listed=1'; </script>";
+    $last_id = $conn->insert_id;
+     for($i=0 ; $i<$h ; $i++)
+     {
+      
+             $heading[$i]= $_POST['heading'.$i.'']; 
+
+             $sql =  "INSERT INTO product_additional_info (product_id, heading ,details) VALUES ('$last_id' , '$details[$i]','$heading[$i]')"; 
+             mysqli_query($conn,$sql); 
+       
+       
+     }
+
+     foreach ($_FILES['upload']['name'] as $key => $name){
+  
+         $filename = time() . "_" . $name;
+         $folder = "../images/product_images/".$filename;
+         $directory = "images/product_images/".$filename;
+         move_uploaded_file($_FILES['upload']['tmp_name'][$key], $folder);
+
+         $sql="INSERT INTO product_images (product_id,image) VALUES ('$last_id','$directory')";
+         if(mysqli_query($conn,$sql))
+         {
+             echo "<script> location.href='/from_scratch/product_page.php?search_result=$last_id&product_listed=1'; </script>";
             
-        }
+         }
 
   
         
-    }
+     }
 
     
-}
-else 
-{
-    echo "<script> location.href='/from_scratch/product_register.php?product_register_error=1'; </script>";
-    if(mysqli_query($conn,$sql))
-    {
+ }
+ else 
+  {
+      echo "<script> location.href='/from_scratch/product_register.php?product_register_error=1'; </script>";
+      if(mysqli_query($conn,$sql))
+     {
 
-    }
+     }
 }
 }
+
 
 
 
@@ -253,9 +282,9 @@ if($ajax_func == "product_additional_info_tags")
     while($row=mysqli_fetch_array($result))
     {
         $heading[$i]=$row['headings']; 
+        
+        $output.='                     <div class="col-md-12"><label class="labels">' .$row['headings'] . '</label><input type="text"  class="form-control" name="heading' .$i . '"  placeholder="Enter ' .$row['headings'] . '" ></div>        '; 
         $i++; 
-        $output.='                     <div class="col-md-12"><label class="labels">' .$row['headings'] . '</label><input type="number" min="1" max="100000000" class="form-control" name="heading' .$i . '"  placeholder="Enter ' .$row['headings'] . '" ></div>        '; 
-      
 
     }
     echo $output; 

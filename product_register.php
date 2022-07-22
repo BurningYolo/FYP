@@ -185,7 +185,6 @@ body {
     success:function(result)
     {
         document.getElementById("additional_fields").innerHTML = result;
-        console.log(result)
         
         // var obj = JSON.parse(result);
         //     var res = [];

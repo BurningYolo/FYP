@@ -231,8 +231,8 @@ if(isset($_GET['product_listed']))
 		<div class="card">
 			<div class="container-fliud">
 				<div class="wrapper row">
-					<div class="preview col-md-7    ">
-                    <div class="preview-pic tab-content">
+					<div class="preview col-md-7" style="height:700px; border:1px solid green">
+                    <div class="preview-pic tab-content" style="border:  1px solid green";">
                         <?php
                     while($row1 = mysqli_fetch_array($result1))
                 {
@@ -278,14 +278,14 @@ if(isset($_GET['product_listed']))
                                                 if($i==1)
                                                 {
                                                     ?>
-                                                    <li class="active"><a data-target="#pic-<?php echo $i ?>" data-toggle="tab"><img alt="1" src="<?php echo $image ?>" /></a></li>
+                                                    <li class="active"><a data-target="#pic-<?php echo $i ?>" data-toggle="tab"><img style="height: 100px; width:140px" alt="1" src="<?php echo $image ?>" /></a></li>
                                                     <?php
                             
                                                 }
                                                 else 
                                                 {
                                                     ?>
-                                                     <li><a data-target="#pic-<?php echo $i ?>" data-toggle="tab"><img alt="1" src="<?php echo $image ?>" /></a></li>
+                                                     <li><a data-target="#pic-<?php echo $i ?>" data-toggle="tab"><img style="height: 100px; width:140px" alt="1" src="<?php echo $image ?>" /></a></li>
                                                     <?php
                             
                                                 }
@@ -319,7 +319,7 @@ if(isset($_GET['product_listed']))
                              while($row3 = mysqli_fetch_array($result3))
                              {
                                 $heading=$row3['heading']; 
-                                $detail=$row3['detail']; 
+                                $detail=$row3['details']; 
 
                             ?>
                             <h6><strong><?php echo $heading ?>: </strong> &nbsp;<?php echo $detail ?></h6>
