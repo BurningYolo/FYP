@@ -205,27 +205,45 @@ if($func=="product_register")
 }
 }
 
-
-
-
-
-
-
-
-
-if($func == "message")
+if($func == "product_verification")
 {
-    $to_id = $_POST['to_id']; 
-    $from_id = $_POST['from_id']; 
-    $message = $_POST['msg']; 
-    $sql="INSERT INTO user_chat (to_user, from_user , msg) VALUES ('$to_id'  , '$from_id' , '$message')";
-    $result=(mysqli_query($conn,$sql));
-    if($result)
-    {
-        echo "POGCHAMP"; 
-    }
+    $description = $_POST['description']; 
+    $product_id = $_POST['product_id']; 
 
+    foreach ($_FILES['upload']['name'] as $key => $name){
+  
+        $filename = time() . "_" . $name;
+        $folder = "../images/verification_images/".$filename;
+        $directory = "images/verification_images/".$filename;
+        move_uploaded_file($_FILES['upload']['tmp_name'][$key], $folder);
+
+        $sql="INSERT INTO product_verification (product_id,description,documents) VALUES ('$product_id','$description', '$directory' )";
+        if(mysqli_query($conn,$sql))
+        {
+            echo "<script> location.href='/from_scratch/active_listing.php?verification_done=1'; </script>";
+           
+        }
+        else{
+            echo "<script> location.href='/from_scratch/product_register.php?verfication_error=1'; </script>";
+        }
+
+ 
+       
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

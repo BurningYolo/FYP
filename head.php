@@ -181,6 +181,7 @@ drift.load('3pxe6ntxf5dd');
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                   <a class="dropdown-item" href="profile.php"> Profile</a>
+                  <a class="dropdown-item" href="active_listing.php">Active Listings</a>
                   <a class="dropdown-item" href="php_backend_stuff/backend.php?func=logout">Log Out</a>
                 </div>
               </li>   

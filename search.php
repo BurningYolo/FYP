@@ -17,27 +17,7 @@ $check = 0 ;
     background-color: #B0BEC5;
 
 }
-.container1 {
-  border: 2px solid #dedede;
-  background-color: #f1f1f1;
-  border-radius: 5px;
-  padding: 10px;
-  margin: 10px 0;
-}
-.container1::after {
-  content: "";
-  clear: both;
-  display: table;
-}
 
-/* Style images */
-.container1 img {
-  float: left;
-  height: 60px;
-  width: 120px;
-  margin-right: 20px;
-  border-radius: 50%;
-}
 
 /* Style the right image */
 

@@ -27,3 +27,11 @@ $(function() {
     setTimeout(function() { $("#need_login").fadeOut(1500); }, 5000)
                     
 })
+$(function() {
+    setTimeout(function() { $("#verification_success").fadeOut(1500); }, 5000)
+                    
+})
+$(function() {
+    setTimeout(function() { $("#verification_error").fadeOut(1500); }, 5000)
+                    
+})
