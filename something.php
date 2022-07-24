@@ -32,6 +32,7 @@ while($row = mysqli_fetch_array($result))
 <style>
 body {
     background: #B0BEC5; 
+  
 }
 .card{
   width: 600px;
@@ -74,6 +75,34 @@ body {
   font-weight:500;
 }
 </style>
+
+<div id="chat_modal"  class="modal fade">
+ <div class="modal-dialog">
+  <div class="modal-content">
+   <div class="modal-header">
+
+  <center><h4 id="NAME" class="modal-title">Chat</h4></center>  
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+   </div>
+
+
+
+   <div class="modal-body">
+   <div id="talkjs-container" style="width: 90%; margin: 30px; height: 500px">
+      <i>Loading chat...</i>
+    </div>
+
+
+ 
+   
+  
+   <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+   </div>
+  </div>
+ </div>
+</div>
+</div>
 
 
 <div class="container mt-5 d-flex justify-content-center">
@@ -262,33 +291,7 @@ if($i == 0 )
 ?>
 
 
-<div id="chat_modal"  class="modal fade">
- <div class="modal-dialog">
-  <div class="modal-content">
-   <div class="modal-header">
 
-  <center><h4 id="NAME" class="modal-title">Chat</h4></center>  
-    <button type="button" class="close" data-dismiss="modal">&times;</button>
-   </div>
-
-
-
-   <div class="modal-body">
-   <div id="talkjs-container" style="width: 90%; margin: 30px; height: 500px">
-      <i>Loading chat...</i>
-    </div>
-
-
- 
-   
-  
-   <div class="modal-footer">
-    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-   </div>
-  </div>
- </div>
-</div>
-</div>
 <script>
 (function(t,a,l,k,j,s){
     s=a.createElement('script');s.async=1;s.src="https://cdn.talkjs.com/talk.js";a.head.appendChild(s)

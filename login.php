@@ -14,7 +14,8 @@ body {
     overflow-x: hidden;
     height: 100%;
     background-color: #B0BEC5;
-    background-repeat: no-repeat;
+    background-image: url('images/logos&stuff/bg-1.jpg');
+    background-size: 100% 100%;
 }
 
 .card0 {

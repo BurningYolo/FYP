@@ -231,7 +231,7 @@ if(isset($_GET['product_listed']))
 		<div class="card">
 			<div class="container-fliud">
 				<div class="wrapper row">
-					<div class="preview col-md-7" style="height:700px; border:1px solid green">
+					<div class="preview col-md-7" style="height:700px; border:4px dashed green; padding:0%">
                     <div class="preview-pic tab-content" style="border:  1px solid green";">
                         <?php
                     while($row1 = mysqli_fetch_array($result1))
@@ -240,14 +240,14 @@ if(isset($_GET['product_listed']))
                     if($i==1)
                     {
                         ?>
-                        <div class="tab-pane active" id="pic-<?php echo $i ?>"><img src="<?php echo $image ?>" /></div>
+                        <div class="tab-pane active" id="pic-<?php echo $i ?>"><img style="height:700px;"src="<?php echo $image ?>" /></div>
                         <?php
 
                     }
                     else 
                     {
                         ?>
-                        <div class="tab-pane" id="pic-<?php echo $i ?>"><img src="<?php echo $image ?>" /></div>
+                        <div class="tab-pane" id="pic-<?php echo $i ?>"><img style="height:700px; width:100%" src="<?php echo $image ?>" /></div>
                         <?php
 
                     }
@@ -345,6 +345,7 @@ if(isset($_GET['product_listed']))
                             {
                                 $user_name=$row4['name']; 
                                 $user_image=$row4['image'];
+                                
 
                             }
                         
@@ -352,7 +353,7 @@ if(isset($_GET['product_listed']))
 
 
                             ?>
-                            <p>Posted by : <?php echo $user_name ?> <img width="40" height="40" class="rounded-circle" src="<?php echo $user_image ?>"></p>
+                            <a href="something.php?to=<?php echo $product_user_id ?>"><p>Posted by : <?php echo $user_name ?> <img width="40" height="40" class="rounded-circle" src="<?php echo $user_image ?>"></p></a>
 						</div>
 					</div>
 				</div>

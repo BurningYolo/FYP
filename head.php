@@ -120,7 +120,7 @@ drift.load('3pxe6ntxf5dd');
                 {
 
                 ?>
-                <a class="dropdown-item" href="#"><?php echo $row["category"] ?></a>
+                <a class="dropdown-item" href="search.php?product_category=<?php echo $row['id'] ?>"><?php echo $row["category"] ?></a>
             
                 <?php
                 }
@@ -193,6 +193,5 @@ drift.load('3pxe6ntxf5dd');
           
    
       </nav>
-      <div id="SomeDivId" style="display:none;">123123123123123123123123123123</div>
       <script>
       </script>
