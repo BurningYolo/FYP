@@ -177,11 +177,24 @@ drift.load('3pxe6ntxf5dd');
                 ?>
                 <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <img src="images/logos&stuff/bell-regular.svg" width="40" height="40" >
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                <p class="dropdown-item">No New Notifications</p>
+                </div>
+              </li>   
+
+
+
+                <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <img src="<?php echo $image ?>" width="40" height="40" class="rounded-circle">
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="profile.php"> Profile</a>
+                <a class="dropdown-item" href="something.php?to=<?php echo $id ?>">User Profile</a>
                   <a class="dropdown-item" href="active_listing.php">Active Listings</a>
+                  <a class="dropdown-item" href="profile.php"> Update profile</a>
+
                   <a class="dropdown-item" href="php_backend_stuff/backend.php?func=logout">Log Out</a>
                 </div>
               </li>   

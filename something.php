@@ -193,8 +193,16 @@ body {
 
 
                    <div class="button mt-2 d-flex flex-row align-items-center">
+                    <?php
+                    if($to != $id)
+                    { 
+                    ?>
 
                    <button class="btn btn-sm btn-success w-100  "    data-toggle="modal" data-target="#chat_modal"  id="chat_user type="button">Chat</button>
+                   <?php 
+                    }
+
+                   ?>
                    <button class="btn btn-sm btn-outline-success w-100" onclick="show_details()">Product Listed</button>
 
                        
