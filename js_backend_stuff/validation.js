@@ -254,6 +254,126 @@ function product_register_validation()
     
 }
 
+function place_bid_validation(starting_price)
+{
+    console.log(starting_price)
+    var paypal = 0 
+    var credit_card = 0 
+    var bank  = 0 
+    var check = 0 
+    document.getElementById("id_error").hidden=true; 
+    document.getElementById("bid_amount_error").hidden = true 
+    user_id=document.getElementById("user_id").value
+    product_id=document.getElementById("product_id").value
+    product_user_id=document.getElementById("product_user_id").value
+    bid=document.getElementById("bid_amount").value
+    if(document.getElementById("paypal1").checked == true)
+    {
+        var paypal = 1 
+    }
+    if(document.getElementById("credit_card1").checked == true)
+    {
+        var credit_card = 1 
+    }
+    if(document.getElementById("bank1").checked == true)
+    {
+        var bank = 1 
+    }
+    if(user_id == product_user_id) 
+    {
+        document.getElementById("id_error").hidden=false; 
+        check ++
+        
+    }
+    if(bid <= starting_price)
+    {
+        document.getElementById("bid_amount_error").hidden=false ; 
+        check ++ 
+    }
+
+    if(check != 0 )
+    {
+        return false
+    }
+    else if(check == 0 )
+    {
+        return true 
+    }
+
+    
+
+}
+
+
+
+function product_update_validation()
+{
+    
+    var name = document.getElementById("name").value 
+    var address = document.getElementById("address").value
+    var location = document.getElementById("location").value
+    var description = document.getElementById("description").value 
+     var starting_price = document.getElementById("starting_price").value 
+     var goal_price = document.getElementById("goal_price").value 
+     var ending_time = document.getElementById("ending_time").value 
+
+    console.log(address , name ,location , description , starting_price , goal_price , ending_time) 
+    back_to_normal()
+   
+    if(name.length<=3)
+    {
+        document.getElementById("name_error").innerHTML = "(Enter a Valid Username)";
+        document.getElementById("name").style.border = "solid 1px red" 
+        check= false 
+
+        
+    }
+    
+    console.log(location)
+    if(location.length<=3)
+    {
+        document.getElementById("location_error").innerHTML = "(Enter a Valid Location)";
+        document.getElementById("location").style.border = "solid 1px red"
+        check = false
+
+    }
+
+    
+    console.log(address)
+    if(address.length<=3)
+    {
+        document.getElementById("address_error").innerHTML = "(Enter a Valid Address)";
+        document.getElementById("address").style.border = "solid 1px red"
+        check = false
+    }
+
+    
+    console.log(description)
+    if(description.length<=3)
+    {
+        document.getElementById("description_error").innerHTML = "(Enter a Valid Description)";
+        document.getElementById("description").style.border = "solid 1px red"
+        check = false
+    }
+  
+    console.log(starting_price)
+
+   
+    console.log(goal_price)
+    if(starting_price >= goal_price)
+    {
+        document.getElementById("starting_price_error").innerHTML = "(Starting Price is not Valid )";
+        document.getElementById("starting_price").style.border = "solid 1px red"
+        check = false
+    }
+   
+  
+
+     return check
+
+    
+    }
+
 
 
     
@@ -306,8 +426,6 @@ function back_to_normal()
 {
     document.getElementById("name_error").innerHTML = " ";
     document.getElementById("name").style.border = "solid 1px silver"
-    document.getElementById("category_error").innerHTML = " ";
-    document.getElementById("category").style.border = "solid 1px silver"
     document.getElementById("location_error").innerHTML = " ";
     document.getElementById("location").style.border = "solid 1px silver"
     document.getElementById("address_error").innerHTML = " ";
@@ -321,6 +439,8 @@ function back_to_normal()
     document.getElementById("ending_time_error").innerHTML = " ";
  
     document.getElementById("ending_time").style.border = "solid 1px silver"
+
+    return false ; 
 }
 
 

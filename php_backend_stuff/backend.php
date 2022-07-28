@@ -1,3 +1,8 @@
+<script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
+</script>
+
+
 <?php
 session_start();
 if(isset($_SESSION['session'])){
@@ -5,6 +10,7 @@ if(isset($_SESSION['session'])){
  
   }
 include("connection.php"); 
+
 
 
 $func = $_GET['func'] ?? 'null';
@@ -232,6 +238,95 @@ if($func == "product_verification")
     }
 }
 
+if($func == "place_bid")
+{
+    $starting_price = $_POST['starting_price']; 
+    $product_id = $_POST['product_id']; 
+    $product_user_id = $_POST['product_user_id']; 
+    $user_id = $_POST['user_id']; 
+    $paypal = $_POST['paypal1']?? 0 ; 
+    $credit_card = $_POST['credit_card1'] ?? 0 ; 
+    $bank = $_POST['bank1'] ?? 0 ; 
+    $bid_amount = $_POST['bid_amount']; 
+
+    $sql = "SELECT * from user_info where id = $product_user_id"; 
+    $result=(mysqli_query($conn, $sql));
+    {
+        while($row=mysqli_fetch_array($result))
+        {
+           $seller_email = $row['email'];
+           $seller_name = $row['name']; 
+        }
+
+    }
+    $sql = "SELECT * from user_info where id = '$user_id'"; 
+    $result=(mysqli_query($conn, $sql));
+    {
+        while($row=mysqli_fetch_array($result))
+        {
+           $buyer_name = $row['name'];
+
+        }
+
+    }
+    
+
+    $sql = "INSERT into bidding_info (seller_id , buyer_id , product_id , bid_amount , paypal , credit_card , bank ) VALUES ('$product_user_id','$user_id','$product_id','$bid_amount','$paypal','$credit_card','$bank')" ; 
+    if(mysqli_query($conn,$sql))
+    {
+        if($bid_amount > $starting_price)
+        {
+            $sql = "UPDATE product_info set start_price='$bid_amount' where id='$product_id'"; 
+            mysqli_query($conn,$sql); 
+
+        }
+        $msg = " ".$buyer_name." has posted a bid on your product of amount ".$bid_amount."rs";
+        $sql = "INSERT into notification (user_id , msg , mark) values ('$product_user_id','$msg','0')"; 
+        mysqli_query($conn, $sql); 
+
+     
+        
+        ?>
+          <script type="text/javascript">
+        var params = 
+        {
+            buyer: "<?php echo $buyer_name; ?> ", 
+            seller: "<?php echo $seller_name; ?> ", 
+            amount: <?php echo $bid_amount ;?> ,
+            seller_email:" <?php echo $seller_email ; ?>"
+        }
+        emailjs.send("service_pvbrpuk","template_pemfkbc", params , "Cw95nl4PTt9tzdwhD").then(function(response) {
+       console.log('SUCCESS!', response.status, response.text);
+    }, function(error) {
+       console.log('FAILED...', error);
+    });
+    
+
+
+    </script>
+    
+
+
+<?php
+
+    echo "<script> location.href='/from_scratch/product_page.php?search_result=$product_id&product_listed=1'; </script>";
+
+            
+
+        
+    }
+    else 
+    {
+
+
+    }
+
+
+
+
+
+}
+
 
 
 
@@ -267,6 +362,17 @@ if($ajax_func == "something" )
         $i++;
     }
     echo json_encode($data); 
+}
+
+if($ajax_func == "notification")
+{
+    $user_id = $_POST['id']; 
+    $sql= "UPDATE notification set mark='1' where user_id = '$user_id'"; 
+    if(mysqli_query($conn,$sql))
+    {
+        $result = "updated"; 
+        echo json_encode($result);
+    }
 }
 
 if($ajax_func == "get_chat" )

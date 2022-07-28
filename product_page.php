@@ -345,7 +345,7 @@ if(isset($_GET['product_listed']))
                           
 
 
-							<button class="add-to-cart btn btn-default" data-toggle="modal" data-target="#bid_modal" type="button" >Place Bid</button>
+							<button class="add-to-cart btn btn-default" data-toggle="modal" data-target="#place_bid_amount" type="button" >Place Bid</button>
               <?php 
                            }
 
@@ -372,6 +372,224 @@ if(isset($_GET['product_listed']))
 				</div>
 			</div>
 		</div>
+
+
+        <div id="place_bid_amount" class="modal fade">
+ <div class="modal-dialog">
+  <div class="modal-content">
+   <div class="modal-header">
+  <center><h4 class="modal-title">Please Place Your Bid</h4></center>
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    
+   </div>
+   <div class="modal-body">
+<center><div id="id_error" hidden style="width: 100% ; height:auto ; background-color:red ; color:white">You Cannot Place Bid on your own product </div></center>
+
+      <form action="php_backend_stuff/backend.php?func=place_bid " method="POST" onsubmit="return place_bid_validation(<?php echo $product_starting_price ?>)" >
+        <input type="text" value="<?php echo $product_id ?>" hidden  id="product_id" name="product_id">
+        <input type="text" value="<?php echo $product_user_id ?>" hidden id="product_user_id" name="product_user_id">
+        <input type="text" value="<?php echo $id ?>" hidden name="user_id" id="user_id">
+        <input type="text" value="<?php echo $product_starting_price ?>" hidden id="starting_price" name="starting_price">
+
+
+        
+
+       <div class="col-md-12 p-4"><label class="labels">Enter the Amount you want to bid</label><span hidden style="color:red" id="bid_amount_error">I(nvalid Bid Amount) </span><input type="number" min-value="1" class="form-control" name="bid_amount" id="bid_amount" placeholder="Please Enter Bid Amount" required ></input></div>
+       <div class="col-md-12 p-2"><label class="labels">Please Select Your Payment method</label></div>
+       <div class="col-md-12 p-2"><input type="checkbox" id="credit_card1" name="credit_card1" value="1">Credit card</div>
+       <div class="col-md-12 p-2"><input type="checkbox" id="paypal1" name="paypal1" value="1">Paypal</div>
+       <div class="col-md-12 p-2"><input type="checkbox" id="bank1" name="bank1" value="1">Bank Payment</div>
+       <center><input class="btn btn-success"type="submit"></center>
+       
+       </form>
+
+
+
+   
+
+
+   </div>
+  
+   <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+   </div>
+  </div>
+ </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <div id="bid_modal"  class="modal fade">
  <div class="modal-dialog">
   <div class="modal-content">

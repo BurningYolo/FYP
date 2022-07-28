@@ -86,7 +86,10 @@ $product_address = $row['address'];
 $product_location = $row['location']; 
 $product_description = $row['description']; 
 $product_starting_price = $row['start_price']; 
+$product_goal_price = $row['goal_price']; 
 $product_id = $row['id']; 
+
+
 ?>
 
             <?php
@@ -126,7 +129,7 @@ while($row1 = mysqli_fetch_array($result1))
             <div class="d-flex flex-column mt-4"><button class="btn btn-danger btn-sm"  data-toggle="modal" data-target="#verify_product<?php echo $product_id ?>" type="button">Verify Product</button>
                 
                 </div>
-                <div class="d-flex flex-column mt-4"><button class="btn btn-primary btn-sm" type="button">Update Info</button>
+                <div class="d-flex flex-column mt-4"><button class="btn btn-primary btn-sm" type="button"><a style="color: white; " href="update_product.php?product=<?php echo $product_id ?>"> Update Info  </a></button>
                 
                 </div>
         </div>
@@ -170,8 +173,6 @@ while($row1 = mysqli_fetch_array($result1))
   </div>
  </div>
 </div>
-
-
 
 
 

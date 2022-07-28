@@ -38,6 +38,27 @@ function show_bank()
     document.getElementById("bank_form").hidden=false; 
     
 }
+function notification_see(id)
+{
+    console.log(id)
+    $.ajax({
+        url:'php_backend_stuff/backend.php',
+        type:"POST", 
+        data:{
+         id:id,
+         ajax_func:"notification"
+        }, 
+        success:function(result)
+        {
+            document.getElementById("notification-check").innerHTML=' '; 
+            document.getElementById("notification-check").innerHTML='<p class="dropdown-item">No New Notifications</p>'; 
+           
+        }
+      
+      
+      })
+
+}
 
 
 
