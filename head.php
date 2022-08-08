@@ -174,21 +174,46 @@ drift.load('3pxe6ntxf5dd');
                       
                       
                   }
+
+                  $sql6 = "SELECT *  from notification where user_id = '$id' AND mark = '0' " ; 
+                  $result6 = mysqli_query($conn, $sql6);
+      
+                  if ($result6)
+                  {
+                      $rows = mysqli_num_rows($result6);
+
+                  }
+                        
+                 
                 ?>
                 <li class="nav-item dropdown">
-                <button style="background-color: transparent; border :none"  class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">                  <img src="images/logos&stuff/bell-regular.svg" width="40" height="40" ></button>
-                </a>
+                  <?php
+                  if($rows == 0)
+                  {
+                    ?>
+                      <a   class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="images/logos&stuff/notification_0.png" width="40" height="40" class="rounded-circle"></a>
+
+
+                    <?php 
+                  }
+                  else 
+                  {
+
+                  
+
+                  ?>
+                                  <a   class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="images/logos&stuff/notification_1.png" width="40" height="40" class="rounded-circle"></a>
+<?php
+                  }
+                  ?>
                 <div id="notification" class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                 <div id="notification-check">
                 <?php 
-                $sql = "Select * from notification where user_id= '$id' AND mark='0' LIMIT 3"; 
+                $sql = "Select * from notification where user_id= '$id' LIMIT 3 "; 
                 $result = (mysqli_query($conn,$sql)); 
                 if ($result->num_rows>0 ){
                 while($row=mysqli_fetch_array($result)){
-                  $msg = $row['msg']; 
-
-                  
-                
+                  $msg = $row['msg'];
                 
                 ?>
                 
@@ -199,7 +224,7 @@ drift.load('3pxe6ntxf5dd');
                 <?php
                 }
                 ?>
-                <button onclick="notification_see(<?php echo $id ?>)" style = "background-color :green ; color : white ; border:1px solid black ; border-radius:50%" class="dropdown-item ">Mark all as read</button>
+                <button onclick="notification_see(<?php echo $id ?>)" style = "background-color :green ; color : white ; border:1px solid black ;" class="dropdown-item ">Mark all as read</button>
                 </div>
                 <?php
               }

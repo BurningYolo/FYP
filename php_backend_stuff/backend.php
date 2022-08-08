@@ -238,6 +238,92 @@ if($func == "product_verification")
     }
 }
 
+
+
+
+if($func == "update_product")
+{
+    $i = $_POST['i']; 
+    $product_id = $_POST['product_id']; 
+    $user_id = $_POST['id']; 
+    $product_user_id = $_POST['product_user_id']; 
+    $s = 0 ; 
+    $name = $_POST['name']; 
+    $address = $_POST['address'] ; 
+    $location = $_POST ['location'] ; 
+    $description = $_POST['description'] ; 
+    $starting_price = $_POST['starting_price'] ; 
+    $goal_price = $_POST['goal_price'] ; 
+
+    
+
+
+    if($product_user_id == $user_id)
+    {
+        
+
+        for($j = 0 ; $j<=$i ; $j++) 
+        {
+            $detail[$j]= $_POST['detail'.$j.''] ?? " "; 
+           
+        }
+
+        $sql= "SELECT * from product_additional_info where product_id = '$product_id'" ; 
+        $result=(mysqli_query($conn,$sql));
+        while($row = mysqli_fetch_array($result))
+        {
+            $heading[$s] = $row['heading']; 
+        
+
+            $sql1 = "UPDATE product_additional_info set heading='$heading[$s]' , details = '$detail[$s]' where product_id = '$product_id' and heading='$heading[$s]'" ; 
+            $result1=(mysqli_query($conn,$sql1));
+
+
+
+            $s++ ; 
+
+        }
+        $sql = "UPDATE product_info set name = '$name' , address = '$address' , location = '$location' , description='$description' , start_price = '$starting_price' , goal_price = '$goal_price' where id = '$product_id'" ; 
+        $result = (mysqli_query($conn,$sql));
+        if($result)
+        {
+            echo "<script> location.href='/from_scratch/product_page.php?update_done=1&search_result=$product_id'; </script>";
+            
+
+        }
+        else
+        {
+            echo "<script> location.href='/from_scratch/update_product.php?update_error=1&product=$product_id'; </script>";
+
+
+        }
+
+
+        
+
+
+       
+
+
+
+
+    }
+    else 
+    {
+        echo "<script> location.href='/from_scratch/update_product.php?update_error=1&product=$product_id'; </script>";
+
+    }
+
+
+
+   
+
+
+
+
+}
+
+
 if($func == "place_bid")
 {
     $starting_price = $_POST['starting_price']; 
@@ -414,4 +500,89 @@ if($ajax_func == "product_additional_info_tags")
     echo $output; 
     
 
+}
+
+
+if($ajax_func == "winner")
+{
+    $id = $_POST['id']; 
+    $data = $_POST['date'] ;
+    $mark = 0 ;  
+    $sql = "SELECT * from bidding_info where id = '$id'" ;
+    $x=(mysqli_query($conn,$sql));
+    while($row=mysqli_fetch_array($x))
+    {
+        $buyer_id = $row['buyer_id'] ; 
+        $product_id = $row['product_id'] ; 
+        $bid_amount = $row['bid_amount'] ; 
+
+    } 
+
+    $sql = "UPDATE  product_info set winner='$id' , end_time = '$data' where id = '$product_id'  " ; 
+    if(mysqli_query($conn,$sql))
+    {
+        $msg = "You have been choosen winner in one of your bids" ; 
+        $sql = "INSERT into notification (user_id , msg , mark) values ('$buyer_id','$msg','$mark')" ; 
+        $result = mysqli_query($conn, $sql) ; 
+        if($result)
+        {
+            echo json_encode("smile");
+
+        }
+
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+if($func == "delete_product")
+{
+    $product_id = $_GET['product']; 
+    $sql = "DELETE  from bidding_info where product_id = '$product_id'" ; 
+    if(mysqli_query($conn,$sql))
+    {
+        $sql1 = "DELETE from product_additional_info where product_id = '$product_id'" ; 
+        if(mysqli_query($conn, $sql1))
+        {
+            $sql4 = "DELETE from product_images where product_id = '$product_id'" ; 
+            if(mysqli_query($conn, $sql4))
+            {
+            $sql2 = "DELETE from product_info where id ='$product_id'" ; 
+            if(mysqli_query($conn, $sql2))
+            {
+                echo "<script> location.href='/from_scratch/active_listing.php?delete_success=1'; </script>";
+
+            }
+        }
+        }
+    } 
+    else
+    {
+        echo "<script> location.href='/from_scratch/acitve_listing.php?delete_error=1'; </script>";
+
+    }
 }

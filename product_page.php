@@ -217,11 +217,33 @@ if(isset($_GET['product_listed']))
 {
     ?>
     <div class="login_success" id="login_success">
-    <p>Product Listed Successfully</p>
+    <p>Product has been listed </p>
 
 </div>
     <?php
     unset($_GET['product_listed']); 
+}
+
+
+if(isset($_GET['update_done']))
+{
+    ?>
+    <div class="login_success" id="login_success">
+    <p>Product has been updated </p>
+
+</div>
+    <?php
+    unset($_GET['update_done']); 
+}
+if(isset($_GET['update_error']))
+{
+    ?>
+    <div class="login_success" id="verification_error">
+    <p>Error Updating Proudct </p>
+
+</div>
+    <?php
+    unset($_GET['update_error']); 
 }
 
 ?>
@@ -340,9 +362,32 @@ if(isset($_GET['product_listed']))
                            if(isset($_SESSION['session']))
                            {
 
+                            $sql4="Select * from bidding_info where product_id = '$product_id'" ; 
+                            $result4 = mysqli_query($conn , $sql4) ;
+                            if($result4)
+                            {
+                                $rows = mysqli_num_rows($result4);
+
+
+                            } 
+                            if($rows == 0 )
+                            {
+
+                           
+
                            ?>
-                            <p style="font-size: 10px;"><strong>No Bids Yet!!!</strong> Bet the First one to place a bid </p>
-                          
+                            <p style="font-size: 10px;"><strong>No Bids Yet!!!</strong> Be the First one to place a bid </p>
+                          <?php 
+                          }
+                          else if($rows > 0)
+                          {
+                            ?>
+                            <p style="font-size: 10px;"><strong><?php echo $rows ?></strong> Bids have been placed on this product </p>
+<?php
+
+                          }
+
+                          ?>
 
 
 							<button class="add-to-cart btn btn-default" data-toggle="modal" data-target="#place_bid_amount" type="button" >Place Bid</button>
@@ -402,12 +447,6 @@ if(isset($_GET['product_listed']))
        <center><input class="btn btn-success"type="submit"></center>
        
        </form>
-
-
-
-   
-
-
    </div>
   
    <div class="modal-footer">

@@ -113,7 +113,7 @@ body {
      <b><h2 style="color: green; "class="text-center">Update Your Product Your Product</h2></b>
     </div>
    
-   <form id="" method="POST" action="php_backend_stuff/backend.php" " onsubmit="return(product_update_validation())">
+   <form id="" method="POST" action="php_backend_stuff/backend.php?func=update_product" " onsubmit="return(product_update_validation())">
     <div class="row">
         <div class="col-md-4 border-right">
             <div class="d-flex flex-column  p-3 py-5">
@@ -142,12 +142,12 @@ body {
                 <div class="row mt-3" id="additional_fields">
                   
                     <?php 
-                      $i = 0 ; 
+                      $i = 0; 
                     $sql = "SELECT * from product_additional_info where product_id = '$product_id' "; 
                     $result= (mysqli_query($conn, $sql)); 
                     while($row = mysqli_fetch_array($result))
                     {
-                        ?> <div class="col-md-12"><label class="labels"><?php echo $row['heading'] ?></label><input type="text"  maxlength = "40" value =" <?php echo $row['details'] ?>" class="form-control" name="detail<?php echo $i ?>" id="address" placeholder=" Enter Address "  required ></div>       
+                        ?> <div class="col-md-12"><label class="labels"><?php echo $row['heading'] ?></label><input type="text"  value ="<?php echo $row['details'] ?>" class="form-control" name="detail<?php echo $i ?>"  ></div>       
 
 <?php
 $i++ ; 
@@ -173,7 +173,10 @@ $i++ ;
                     <div class="col-md-12"><label class="labels">Starting Price<span id="starting_price_error"></span></label><input type="number" min="1" max="100000000" class="form-control" name="starting_price" value="<?php echo $product_starting_price ?>" id="starting_price" placeholder="Enter Starting Price"   required></div>
                     <div class="col-md-12"><label class="labels">Goal Price<span id="goal_price_error"></span></label><input type="number"   min="1" max="100000000000" class="form-control"  name="goal_price" value="<?php echo $product_goal_price ?>" id="goal_price" placeholder="Enter Goal Price"  required  ></div>
                     <div class="col-md-12"><label class="labels">Ending Time <span id="ending_time_error"></span></label><input type="date"  name="ending_time" class="form-control" id="ending_time" value="<?php echo $product_end_time ?>"    placeholder="Enter Ending Time"  disabled  required ></div>
-               
+                    <input type="hidden" value="<?php echo $i ?>" name="i" >
+                    <input type="hidden" value="<?php echo $product_id ?>" name="product_id" >
+                    <input type="hidden" value="<?php echo $id ?>" name="id" ?>
+                    <input type="hidden" value="<?php echo $product_user_id ?>" name="product_user_id" >
                 </div>
 
             </div>

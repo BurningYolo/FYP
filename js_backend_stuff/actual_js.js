@@ -60,6 +60,34 @@ function notification_see(id)
 
 }
 
+function choosewinner(id){
+    var id = id ;
+    var date = todays_date_formatting(); 
+    $.ajax({
+        url:'php_backend_stuff/backend.php',
+        type:"POST", 
+        data:{
+         id:id,
+         date:date,
+         ajax_func:"winner"
+        }, 
+        success:function(result)
+        {
+            console.log(result) 
+
+            // email to winner 
+           
+        }
+      
+      
+      })
+
+    
+
+}
+
+
+
 
 
 

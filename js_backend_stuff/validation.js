@@ -308,6 +308,7 @@ function place_bid_validation(starting_price)
 
 function product_update_validation()
 {
+    var check = true
     
     var name = document.getElementById("name").value 
     var address = document.getElementById("address").value
@@ -322,7 +323,7 @@ function product_update_validation()
    
     if(name.length<=3)
     {
-        document.getElementById("name_error").innerHTML = "(Enter a Valid Username)";
+        document.getElementById("name_error").innerHTML = "(Enter a Valid productname)";
         document.getElementById("name").style.border = "solid 1px red" 
         check= false 
 
