@@ -86,6 +86,12 @@ function choosewinner(id){
 
 }
 
+$(document).ready( function () {
+    $('#user_table').DataTable(
+    );
+} );
+
+
 
 
 
