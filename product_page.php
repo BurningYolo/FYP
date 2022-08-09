@@ -390,7 +390,7 @@ if(isset($_GET['update_error']))
                           ?>
 
 
-							<button class="add-to-cart btn btn-default" data-toggle="modal" data-target="#place_bid_amount" type="button" >Place Bid</button>
+							<button class="add-to-cart btn btn-default" id="place_bid_button" data-toggle="modal" data-target="#place_bid_amount" type="button" >Place Bid</button>
               <?php 
                            }
 
@@ -629,196 +629,6 @@ if(isset($_GET['update_error']))
 
 
 
-    <div id="bid_modal"  class="modal fade">
- <div class="modal-dialog">
-  <div class="modal-content">
-   <div class="modal-header">
-
-  <center><h4 id="NAME" class="modal-title">Payment Module</h4></center>  
-    <button type="button" class="close" data-dismiss="modal">&times;</button>
-   </div>
-
-
-
-   <div class="modal-body">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 mt-4">
-                <div class="card p-3">
-                    <p class="mb-0 fw-bold h4">Payment Methods</p>
-                </div>
-            </div>
-            <div class="col-4 "><center><button style="width: 100%;" class="btn-primary"value="" onclick="show_credit_card()"> Credit Card</center></button></div>
-            <div class="col-4 justify-content-center"><center><button style="width: 100%;" class="btn-primary" value="" onclick="show_paypal()"> Paypal</center></button></center></div>
-            <div class="col-4 justify-content-center"><center><button style="width: 100%;" class="btn-primary" value="" onclick="show_bank()"> By Bank</center></button></center></div>
-            <div class="col-12" id="credit_card_form" hidden>
-                <div class="card p-3">
-                    <div class="card-body border p-0">
-                        <p>
-                            <a class="btn btn-primary p-2 w-100 h-100 d-flex align-items-center justify-content-between"
-                                data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="true"
-                                aria-controls="collapseExample">
-                                <span class="fw-bold">Credit Card</span>
-                            </a>
-                        </p>
-                                <div class="col-lg-12">
-                                    <form action="" class="form">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="form__div">
-                                                    <input type="text" class="form-control" placeholder=" ">
-                                                    <label for="" class="form__label">Card Number</label>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-6">
-                                                <div class="form__div">
-                                                    <input type="text" class="form-control" placeholder=" ">
-                                                    <label for="" class="form__label">MM / yy</label>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-6">
-                                                <div class="form__div">
-                                                    <input type="password" class="form-control" placeholder=" ">
-                                                    <label for="" class="form__label">cvv code</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-12">
-                                                <div class="form__div">
-                                                    <input type="text" class="form-control" placeholder=" ">
-                                                    <label for="" class="form__label">name on the card</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-12">
-                                               <center><div class="btn btn-primary w-100">Sumbit</div></center> 
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
-                    <div class="col-12" id="paypal_form" hidden>
-                <div class="card p-3">
-                    <div class="card-body border p-0">
-                        <p>
-                            <a class="btn btn-primary p-2 w-100 h-100 d-flex align-items-center justify-content-between"
-                                data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="true"
-                                aria-controls="collapseExample">
-                                <span class="fw-bold">Paypal</span>
-                            </a>
-                        </p>
-                                <div class="col-lg-12">
-                                <script src="https://www.paypal.com/sdk/js?client-id=AZyyE_EI5umDuTZDf70WTutEiV2EdlYAM-D3QbA8R_n5fD3snXplqS4WSDw70_b1x69HqegCFiiyfC0E"></script>
-                                <div id="paypal-button-container"></div>
-                                <script>
-                               paypal.Buttons({
-  createOrder: function(data, actions) {
-    // This function sets up the details of the transaction, including the amount and line item details.
-    return actions.order.create({
-      purchase_units: [{
-        amount: {
-          value: '<?php echo $product_starting_price ?>'
-        }
-      }]
-    });
-  }
-}).render('#paypal-button-container');
-//This function displays payment buttons on your web page.
-                                </script>
-                            
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
-                    <div class="col-12" id="bank_form" hidden>
-                <div class="card p-3">
-                    <div class="card-body border p-0">
-                        <p>
-                            <a class="btn btn-primary p-2 w-100 h-100 d-flex align-items-center justify-content-between"
-                                data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="true"
-                                aria-controls="collapseExample">
-                                <span class="fw-bold">Manual Bank Payment</span>
-                            </a>
-                        </p>
-                                <div class="col-lg-12">
-                                    <form action="" class="form">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="form__div">
-                                                    <input type="text" class="form-control" placeholder=" ">
-                                                    <label for="" class="form__label">Card Number</label>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-6">
-                                                <div class="form__div">
-                                                    <input type="text" class="form-control" placeholder=" ">
-                                                    <label for="" class="form__label">MM / yy</label>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-6">
-                                                <div class="form__div">
-                                                    <input type="password" class="form-control" placeholder=" ">
-                                                    <label for="" class="form__label">cvv code</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-12">
-                                                <div class="form__div">
-                                                    <input type="text" class="form-control" placeholder=" ">
-                                                    <label for="" class="form__label">name on the card</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-12">
-                                               <center><div class="btn btn-primary w-100">Sumbit</div></center> 
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                </div>
-            </div>
-        </div>
-
-
- 
-   
-  
-   <div class="modal-footer">
-    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-   </div>
-  </div>
- </div>
-</div>
-</div>
 
 
 
@@ -865,6 +675,8 @@ if(isset($_GET['update_error']))
   if (distance < 0) {
     clearInterval(x);
     document.getElementById("ending_timer").innerHTML = "EXPIRED";
+    document.getElementById("place_bid_button").innerText = "Time Ended"
+    document.getElementById("place_bid_button").disabled = true ; 
   }
 }, 1000);
 

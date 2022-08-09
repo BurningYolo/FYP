@@ -101,7 +101,7 @@ unset($_GET['delete_error']);
 <div class="d-flex justify-content-center row ">
 <div class="col-md-10">
             <div class="row p-2 justify-content-center bg-white border rounded" >
-              <h2>PRODUCTS</h2>
+              <h2>ACTIVE LISTINGS</h2>
             </div>
 
 </div>
@@ -301,6 +301,323 @@ while($row1 = mysqli_fetch_array($result1))
 
 }
 ?>
+<div class="container mt-5 mb-5 ">
+<div class="d-flex justify-content-center row ">
+<div class="col-md-10">
+            <div class="row p-2 justify-content-center bg-white border rounded" >
+              <h2>ACTIVE BIDS</h2>
+            </div>
+
+</div>
+
+     
+    
+</div>
+<?php 
+$sql = "Select * from bidding_info where buyer_id = '$id'" ; 
+$result = mysqli_query($conn,$sql) ; 
+while($row1= mysqli_fetch_array($result))
+{
+    $product_id = $row1['product_id'] ; 
+    $bid_amount = $row1['bid_amount']; 
+
+    $sql1 = "SELECT * from product_info where id = '$product_id'" ; 
+    $result1 = mysqli_query($conn,$sql1) ; 
+    while($row = mysqli_fetch_array($result1))
+    {
+        $product_name = $row['name']; 
+        $product_address = $row['address']; 
+        $product_location = $row['location']; 
+        $product_description = $row['description']; 
+        $product_starting_price = $row['start_price']; 
+        $product_goal_price = $row['goal_price']; 
+        $product_id = $row['id']; 
+        $winner = $row['winner'] ; 
+
+        if($winner != null)
+        {
+            $sql3 = "Select * from bidding_info where id = '$winner'" ; 
+            $result3 = mysqli_query($conn,$sql3) ; 
+            while($row3 = mysqli_fetch_array($result3))
+            {
+                $winner = $row3['buyer_id'] ; 
+            }
+        }
+
+
+
+
+?>
+<form action="product_page.php?search_result=<?php echo $product_id ?>" method="POST">
+    <div class="d-flex justify-content-center row" >
+        <div class="col-md-10">
+            <div class="row p-2 bg-white border rounded" >
+                <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" style="height: 159px; width:200px"  src="<?php echo $product_image ?>"></div>
+                <div class="col-md-6 mt-1">
+                    <h5><?php echo $product_name ?></h5>
+                    <div class="d-flex flex-row">
+                     <span><?php echo $product_description ?></span>
+                    </div>
+                    <br>
+                    <div class="mt-1 mb-1 spec-1"><span><?php echo $product_location?></span><span class="dot"></span></div>
+                    <div class="mt-1 mb-1 spec-1"><span><?php echo $product_address ?></span><span class="dot"></span></div>   
+                    <div class="mt-1 mb-1 spec-1"><a href=""><span>Chat with seller</span><span class="dot"></span></a></div>                   
+                     
+                </div>
+                <div class="align-items-center align-content-center col-md-3 border-left mt-1">
+                    <div class="d-flex flex-row align-items-center">
+                        <h4 class="mr-1" style="color: green;"><?php echo $bid_amount ?>rs</h4>
+                    </div>
+                    <h6 class="text-success">Your Bid </h6>
+                    <div class="d-flex flex-column mt-4"><button class="btn btn-success btn-sm" type="submit">Details</button>
+            
+
+                </div>
+
+                <?php
+                if($winner == $id)
+                {
+
+                
+                ?>
+                <div class="d-flex flex-column mt-4"><h5><b>You Are the Winner </b></h5></button> 
+
+            
+
+                </div>
+                <div class="d-flex flex-column mt-4"><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#bid_modal<?php echo  $bid_amount ?>" type="button">Add Payment Details</button>
+            
+
+            </div>
+
+                <?php 
+                }
+                else 
+                {
+                    
+                    ?>
+                     <div class="d-flex flex-column mt-4"><h5><b>No Winner has been choosen yet </b></h5></button> 
+
+                    <?php 
+
+                }
+                
+
+    }
+    ?>
+            </div>
+        
+        </div>
+    </div>
+</form>
+
+
+<div id="bid_modal<?php echo $bid_amount ?>"  class="modal fade">
+ <div class="modal-dialog">
+  <div class="modal-content">   
+   <div class="modal-header">
+
+  <center><h4 id="NAME" class="modal-title">Payment Module</h4></center>  
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+   </div>
+
+
+
+   <div class="modal-body">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mt-4">
+                <div class="card p-3">
+                    <p class="mb-0 fw-bold h4">Payment Methods</p>
+                </div>
+            </div>
+            <div class="col-4 "><center><button style="width: 100%;" type="button" class="btn-primary"value="" onclick="show_credit_card()"> Credit Card</center></button></div>
+            <div class="col-4 justify-content-center"><center><button type="button" style="width: 100%;" class="btn-primary" value="" onclick="show_paypal()"> Paypal</center></button></center></div>
+            <div class="col-4 justify-content-center"><center><button type="button" style="width: 100%;" class="btn-primary" value="" onclick="show_bank()"> By Bank</center></button></center></div>
+            <div class="col-12" id="credit_card_form" hidden>
+                <div class="card p-3">
+                    <div class="card-body border p-0">
+                        <p>
+                            <a class="btn btn-primary p-2 w-100 h-100 d-flex align-items-center justify-content-between"
+                                data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="true"
+                                aria-controls="collapseExample">
+                                <span class="fw-bold">Credit Card</span>
+                            </a>
+                        </p>
+                                <div class="col-lg-12">
+                                    <form action="" class="form">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form__div">
+                                                    <input type="text" class="form-control" placeholder=" ">
+                                                    <label for="" class="form__label">Card Number</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6">
+                                                <div class="form__div">
+                                                    <input type="text" class="form-control" placeholder=" ">
+                                                    <label for="" class="form__label">MM / yy</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6">
+                                                <div class="form__div">
+                                                    <input type="password" class="form-control" placeholder=" ">
+                                                    <label for="" class="form__label">cvv code</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form__div">
+                                                    <input type="text" class="form-control" placeholder=" ">
+                                                    <label for="" class="form__label">name on the card</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                               <center><div class="btn btn-primary w-100">Sumbit</div></center> 
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="col-12" id="paypal_form" hidden>
+                <div class="card p-3">
+                    <div class="card-body border p-0">
+                        <p>
+                            <a class="btn btn-primary p-2 w-100 h-100 d-flex align-items-center justify-content-between"
+                                data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="true"
+                                aria-controls="collapseExample">
+                                <span class="fw-bold">Paypal</span>
+                            </a>
+                        </p>
+                                <div class="col-lg-12">
+                                <script src="https://www.paypal.com/sdk/js?client-id=AZyyE_EI5umDuTZDf70WTutEiV2EdlYAM-D3QbA8R_n5fD3snXplqS4WSDw70_b1x69HqegCFiiyfC0E"></script>
+                                <div id="paypal-button-container"></div>
+                                <script>
+                               paypal.Buttons({
+  createOrder: function(data, actions) {
+    // This function sets up the details of the transaction, including the amount and line item details.
+    return actions.order.create({
+      purchase_units: [{
+        amount: {
+          value: '<?php echo $product_starting_price ?>'
+        }
+      }]
+    });
+  }
+}).render('#paypal-button-container');
+//This function displays payment buttons on your web page.
+                                </script>
+                            
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="col-12" id="bank_form" hidden>
+                <div class="card p-3">
+                    <div class="card-body border p-0">
+                        <p>
+                            <a class="btn btn-primary p-2 w-100 h-100 d-flex align-items-center justify-content-between"
+                                data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="true"
+                                aria-controls="collapseExample">
+                                <span class="fw-bold">Manual Bank Payment</span>
+                            </a>
+                        </p>
+                                <div class="col-lg-12">
+                                    <form action="" class="form">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form__div">
+                                                    <input type="text" class="form-control" placeholder=" ">
+                                                    <label for="" class="form__label">Card Number</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6">
+                                                <div class="form__div">
+                                                    <input type="text" class="form-control" placeholder=" ">
+                                                    <label for="" class="form__label">MM / yy</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6">
+                                                <div class="form__div">
+                                                    <input type="password" class="form-control" placeholder=" ">
+                                                    <label for="" class="form__label">cvv code</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form__div">
+                                                    <input type="text" class="form-control" placeholder=" ">
+                                                    <label for="" class="form__label">name on the card</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                               <center><div class="btn btn-primary w-100">Sumbit</div></center> 
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+
+
+ 
+   
+  
+   <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+   </div>
+  </div>
+ </div>
+</div>
+</div>
+
+
+
+<?php 
+}
+?>
+
+
+
+
+
+
+
+
+
+
 <script >
 
 $(document).ready( function () {
@@ -308,4 +625,29 @@ $(document).ready( function () {
         {bFilter: false, bInfo: false ,     ordering: false}
     );
 } );
+
+// var myHeaders = new Headers();
+// myHeaders.append("apikey", "n2zfeH3ziUuUSThIpMVR7W4tgWVzex9B");
+
+// var requestOptions = {
+//   method: 'GET',
+//   redirect: 'follow',
+//   headers: myHeaders
+// };
+
+// fetch("https://api.apilayer.com/exchangerates_data/latest?symbols=USD&base=PKR", requestOptions)
+//   .then(response => response.text())
+//   .then(result => JSON.parse(result))
+//   .then(result => filling_to_php(resutl.rates["USD"])) 
+//    .catch(error => console.log('error', error));
+
+
+   
+   
+
 </script>
+
+
+
+
+

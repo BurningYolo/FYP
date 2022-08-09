@@ -93,7 +93,7 @@ drift.load('3pxe6ntxf5dd');
 <body>
     <nav class="navbar navbar-dark bg-success navbar-expand-sm">
         <div class="navbar">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="main.php">
                 <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/logo_white.png" width="30" height="30"  alt="logo">
                <b> EasyAuction</b>
               </a>
@@ -102,7 +102,7 @@ drift.load('3pxe6ntxf5dd');
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item active">
-                <a class="nav-link" href="#">Home </a>
+                <a class="nav-link" href="main.php">Home </a>
               </li>
               <li class="nav-item active">
                 <a class="nav-link" href="/from_scratch/product_register.php">Add Product </a>

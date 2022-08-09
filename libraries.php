@@ -20,7 +20,8 @@
 <script src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
 
 <link rel="stylesheet" href="https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css">
-
+<link href="Bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
 
 
 <script type="text/javascript"
