@@ -32,14 +32,13 @@
 		
 		<div class="wrapper d-flex align-items-stretch">
 			<nav id="sidebar">
-		
 				<div class="p-4 pt-5">
 	        <ul class="list-unstyled components mb-5">
 	          <li class="active">
 	            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Product Management</a>
 	            <ul class="collapse list-unstyled" id="homeSubmenu">
                 <li>
-                    <a href="" > Product list</a>
+                    <a href="admin_productlist.php" > Product list</a>
                     
                 </li>
                 <li>
@@ -48,7 +47,7 @@
 	            </ul>
 	          </li>
 	          <li>
-	              <a href="user_management.php?data=approve_product">Approve Products</a>
+	              <a href="admin_verifyproducts.php">Approve Products</a>
 	          </li>
 	          <li>
               <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">User Management</a>
@@ -78,7 +77,21 @@
 
 	        </ul>
     	</nav>
+      <button id="sidebar_something" onclick="display_siderbar()">>></button>
 
-      <div id="content" class="p-4 p-md-5 pt-5  ">
+      <div id="content" class="p-4 p-md-5 pt-5  " style="overflow-y: scroll;">
+      <script>
+
+        function display_siderbar()
+        {
+          var s = document.getElementById("sidebar")
+          if (s.style.display === "none") {
+    s.style.display = "block";
+  } else {
+    s.style.display = "none";
+  }
+        }
+      </script>
+
    
      

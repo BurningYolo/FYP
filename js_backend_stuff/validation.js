@@ -123,14 +123,14 @@ function product_register_validation()
 {
     var check = true
     var name = document.getElementById("name").value 
-    var category = document.getElementById("category").value
+    console.log(name)
+   
     var address = document.getElementById("address").value 
     var location = document.getElementById("location").value 
     var description = document.getElementById("description").value 
     var starting_price = document.getElementById("starting_price").value 
     var goal_price = document.getElementById("goal_price").value 
     var ending_time = document.getElementById("ending_time").value 
-    back_to_normal() 
     console.log(name) 
     if(name.length<=3)
     {
@@ -140,9 +140,8 @@ function product_register_validation()
         
     }
     
-    console.log(category)
     
-    console.log(location)
+    // console.log(location)
     if(location.length<=3)
     {
         document.getElementById("location_error").innerHTML = "(Enter a Valid Location)";
@@ -157,13 +156,6 @@ function product_register_validation()
     {
         document.getElementById("address_error").innerHTML = "(Enter a Valid Address)";
         document.getElementById("address").style.border = "solid 1px red"
-        check = false
-    }
-    if(category=="base")
-
-    {
-        document.getElementById("category_error").innerHTML = "(Please Choose a Category)";
-        document.getElementById("category").style.border = "solid 1px red"
         check = false
     }
 
@@ -211,44 +203,6 @@ function product_register_validation()
 
 
 
-
-
-
-    var head1 = document.getElementById("heading1")
-    if(head1)
-    {
-         var heading1 = document.getElementById("heading1").value 
-         console.log(heading1)
-         var detail1 = document.getElementById("detail1").value 
-         console.log(detail1)
-         var head2 = document.getElementById("heading2")
-
-         if(head2)
-         {
-             var heading2 = document.getElementById("heading2").value 
-            console.log(heading2)
-            var detail2 = document.getElementById("detail2").value 
-            console.log(detail2)
-            var head3 = document.getElementById("heading3")
-            if(head3)
-            {
-                var heading3 = document.getElementById("heading3").value 
-                console.log(heading3)
-                var detail3 = document.getElementById("detail3").value 
-                console.log(detail3)
-                var head4 = document.getElementById("heading4")
-                if(head4)
-                {
-                    var heading4 = document.getElementById("heading4").value 
-                    console.log(heading4)
-                    var detail4 = document.getElementById("detail4").value 
-                    console.log(detail4)
-                }
-            }
-
-
-         }
-    }
 
     return check
     
@@ -318,6 +272,8 @@ function product_update_validation()
      var goal_price = document.getElementById("goal_price").value 
      var ending_time = document.getElementById("ending_time").value 
 
+     var start = parseInt(starting_price);
+     var goal = parseInt(goal_price)
     console.log(address , name ,location , description , starting_price , goal_price , ending_time) 
     back_to_normal()
    
@@ -361,16 +317,16 @@ function product_update_validation()
 
    
     console.log(goal_price)
-    if(starting_price >= goal_price)
+    if(start > goal)
     {
         document.getElementById("starting_price_error").innerHTML = "(Starting Price is not Valid )";
         document.getElementById("starting_price").style.border = "solid 1px red"
         check = false
     }
    
-  
+    
 
-     return check
+  return check  
 
     
     }

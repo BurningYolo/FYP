@@ -8,7 +8,8 @@ include("head.php");
 ?>
 <style>
 
-
+body{
+  background: #B0BEC5; }
 .login_success
 {
     
@@ -59,8 +60,8 @@ $result = mysqli_query($conn , $sql ) ;
 ?>
     <section class="collection" id="something">
       <div class="container py-5">
-        <h1 class="text-center">NEW LISTINGS </h1>
-        <div class="row py-5">
+        <h1 class="text-center" style="color: white ; background-color:green"><i><b>NEW LISTINGS</b></i> </h1>
+        <div class="row py-5" style="background-color: rgb(204, 236, 204); border:2px solid green;" >
             <?php 
 while($row=mysqli_fetch_array($result))
 
@@ -76,11 +77,11 @@ while($row=mysqli_fetch_array($result))
 
             ?>
             <div class="col-lg-3">
-              <div class="card">
-                <img src="<?php echo $image ?>" style="height:450px" class="img-fluid mb-3" alt="">
-                <a href="product_page.php?search_result=<?php echo $product ?>"><input type="button" class="btn btn-success" value="Show Details"></a>
+              <div class="card" style="border:1px solid green">
+                <img src="<?php echo $image ?>" style="height: 300px;" class="img-fluid mb-3" alt="">
+                <center><a href="product_page.php?search_result=<?php echo $product ?>"><input type="button" class="btn btn-success" value="Show Details"></a>
                 <b><h5><?php echo $row['name'] ?></h5></b>
-                <p><small>Starting from:<span> <?php echo $row['start_price'] ?> </span></small></p>
+                <p><small>Starting from:<span> <?php echo $row['start_price'] ?> </span></small></p></center>
               </div>
             </div>
     
@@ -104,8 +105,8 @@ $result = mysqli_query($conn , $sql ) ;
 ?>
     <section class="collection" >
       <div class="container py-5">
-        <h1 class="text-center">TRENDING </h1>
-        <div class="row py-5">
+        <h1 class="text-center"  style="color: white ; background-color:green"><i><b>TRENDING </b></i></h1>
+        <div class="row py-5" style="background-color: rgb(204, 236, 204); border: 2px solid green;">
             <?php 
 while($row=mysqli_fetch_array($result))
 
@@ -120,12 +121,12 @@ while($row=mysqli_fetch_array($result))
 
 
             ?>
-            <div class="col-lg-3">
-              <div class="card">
-                <img src="<?php echo $image ?>" style="height:450px" class="img-fluid mb-3" alt="">
-                <a href="product_page.php?search_result=<?php echo $product ?>"><input type="button" class="btn btn-success" value="Show Details"></a>
+            <div class="col-lg-3" >
+              <div class="card"style="border:1px solid green">
+                <img src="<?php echo $image ?>" style="height: 300px;" class="img-fluid mb-3" alt="">
+                <center><a href="product_page.php?search_result=<?php echo $product ?>"><input type="button" class="btn btn-success" value="Show Details"></a>
                 <b><h5><?php echo $row['name'] ?></h5></b>
-                <p><small>Starting from:<span> <?php echo $row['start_price'] ?> </span></small></p>
+                <p><small>Starting from:<span> <?php echo $row['start_price'] ?> </span></small></p></center>
               </div>
             </div>
     

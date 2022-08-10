@@ -55,11 +55,12 @@ if($filename == null)
 if($func == "delete")
 {
     $id = $_GET['id'] ; 
-    echo $id ; 
     $sql = "DELETE from bidding_info where buyer_id OR seller_id = '$id'" ; 
     $result=(mysqli_query($conn, $sql));  
     $sql = "DELETE from product_info where user_id = '$id'" ;
-    $result=(mysqli_query($conn, $sql));  
+    $result=(mysqli_query($conn, $sql));
+    $sql = "DELETE from notification where user_id = '$id'" ;   
+    $result=(mysqli_query($conn,$sql));
     $sql = "DELETE from user_info where id = '$id'" ; 
     $result=(mysqli_query($conn, $sql));  
 
@@ -136,7 +137,7 @@ if($func == "addproduct")
 
 
  
-    $sql="INSERT INTO product_info (name,address,location,approval,description,start_price,goal_price,end_time,product_category_id,user_id) VALUES ('$name','$address','$location','$approval','$description','$starting_price','$goal_price','$ending_time','$category','1')";
+    $sql="INSERT INTO product_info (name,address,location,approval,description,start_price,goal_price,end_time,product_category_id,user_id) VALUES ('$name','$address','$location','$approval','$description','$starting_price','$goal_price','$ending_time','$category','39')";
 
      if(mysqli_query($conn,$sql))
  
@@ -149,6 +150,11 @@ if($func == "addproduct")
      {
       
              $heading[$i]= $_POST['heading'.$i.'']; 
+             if($heading[$i]==" " || $heading[$i] == null)
+             {
+                $heading[$i] = 0 ; 
+             }
+
 
              $sql =  "INSERT INTO product_additional_info (product_id, heading ,details) VALUES ('$last_id' , '$details[$i]','$heading[$i]')"; 
              mysqli_query($conn,$sql); 
@@ -187,6 +193,153 @@ if($func == "addproduct")
      }
 }
 }
+
+if($func == "delete_product")
+{
+    $product_id = $_GET['product_id'];
+    $sql = "DELETE  from bidding_info where product_id = '$product_id'" ; 
+    if(mysqli_query($conn,$sql))
+    {
+        $sql1 = "DELETE from product_additional_info where product_id = '$product_id'" ; 
+        if(mysqli_query($conn, $sql1))
+        {
+            $sql4 = "DELETE from product_images where product_id = '$product_id'" ; 
+            if(mysqli_query($conn, $sql4))
+            {
+            $sql5 = "DELETE from product_verification where product_id = '$product_id' " ; 
+            if(mysqli_query($conn,$sql5))
+            {
+
+            
+            $sql2 = "DELETE from product_info where id ='$product_id'" ; 
+            if(mysqli_query($conn, $sql2))
+            {
+                echo '<script> alert("Product Deleted Successfully")</script>';
+                echo "<script> location.href='/from_scratch/admin_productlist.php'; </script>";
+            }
+        }
+        }
+        }
+    } 
+    else
+    {
+        echo '<script> alert("Error Deleting Product")</script>';
+        echo "<script> location.href='/from_scratch/admin_productlist.php'; </script>";
+    }
+}
+
+
+
+if($func == "update_product")
+{
+    $i = $_POST['i']; 
+    $product_id = $_POST['product_id']; 
+    $user_id = $_POST['id']; 
+    $product_user_id = $_POST['product_user_id']; 
+    $s = 0 ; 
+    $name = $_POST['name']; 
+    $address = $_POST['address'] ; 
+    $location = $_POST ['location'] ; 
+    $description = $_POST['description'] ; 
+    $starting_price = $_POST['starting_price'] ; 
+    $goal_price = $_POST['goal_price'] ; 
+
+    
+
+
+        
+
+        for($j = 0 ; $j<=$i ; $j++) 
+        {
+            $detail[$j]= $_POST['detail'.$j.''] ?? " "; 
+           
+        }
+
+        $sql= "SELECT * from product_additional_info where product_id = '$product_id'" ; 
+        $result=(mysqli_query($conn,$sql));
+        while($row = mysqli_fetch_array($result))
+        {
+            $heading[$s] = $row['heading']; 
+        
+
+            $sql1 = "UPDATE product_additional_info set heading='$heading[$s]' , details = '$detail[$s]' where product_id = '$product_id' and heading='$heading[$s]'" ; 
+            $result1=(mysqli_query($conn,$sql1));
+
+
+
+            $s++ ; 
+
+        }
+        $sql = "UPDATE product_info set name = '$name' , address = '$address' , location = '$location' , description='$description' , start_price = '$starting_price' , goal_price = '$goal_price' where id = '$product_id'" ; 
+        $result = (mysqli_query($conn,$sql));
+        if($result)
+        {
+            echo '<script> alert(" Product Successfully Updated")</script>';
+            echo "<script> location.href='/from_scratch/admin_productlist.php'; </script>";            
+
+        }
+        else
+        {
+            echo '<script> alert("Error Updating Product")</script>';
+            echo "<script> location.href='/from_scratch/admin_productlist.php'; </script>";    
+
+
+        }
+
+
+        
+
+
+       
+
+
+
+
+    }
+
+if($func == "product_approve")
+{
+    $id = $_GET['id']; 
+
+    $sql = "UPDATE product_info set approval = '1' where id = '$id'"; 
+    if(mysqli_query($conn,$sql))
+    {
+        echo '<script> alert(" Product Successfully Approved")</script>';
+        echo "<script> location.href='/from_scratch/admin_productlist.php'; </script>"; 
+
+    }
+    else{
+        echo '<script> alert(" Error Approving Product")</script>';
+        echo "<script> location.href='/from_scratch/admin_productlist.php'; </script>"; 
+
+    }
+
+}
+
+if($func == "product_reject")
+{
+    $id=$_GET['id']; 
+    $sql="DELETE from product_verification where product_id = '$id' "; 
+
+    if(mysqli_query($conn,$sql))
+    {
+        echo '<script> alert(" Product Successfully Rejected")</script>';
+        echo "<script> location.href='/from_scratch/admin_productlist.php'; </script>"; 
+
+    }
+    else{
+        echo '<script> alert(" Error Rejecting Product")</script>';
+        echo "<script> location.href='/from_scratch/admin_productlist.php'; </script>"; 
+
+    }
+
+}
+
+
+
+   
+
+
 
 
 

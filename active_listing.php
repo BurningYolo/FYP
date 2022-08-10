@@ -334,6 +334,13 @@ while($row1= mysqli_fetch_array($result))
         $product_id = $row['id']; 
         $winner = $row['winner'] ; 
 
+        $sql9 = "Select * from product_images where product_id = '$product_id' limit 1";
+        $result9 = mysqli_query($conn , $sql9 ) ; 
+        while($row9=mysqli_fetch_array($result9))
+        {
+            $image = $row9['image'];
+        }
+
         if($winner != null)
         {
             $sql3 = "Select * from bidding_info where id = '$winner'" ; 
@@ -341,6 +348,7 @@ while($row1= mysqli_fetch_array($result))
             while($row3 = mysqli_fetch_array($result3))
             {
                 $winner = $row3['buyer_id'] ; 
+                $seller_id = $row3['seller_id'];
             }
         }
 
@@ -352,7 +360,7 @@ while($row1= mysqli_fetch_array($result))
     <div class="d-flex justify-content-center row" >
         <div class="col-md-10">
             <div class="row p-2 bg-white border rounded" >
-                <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" style="height: 159px; width:200px"  src="<?php echo $product_image ?>"></div>
+                <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" style="height: 159px; width:200px"  src="<?php echo $image ?>"></div>
                 <div class="col-md-6 mt-1">
                     <h5><?php echo $product_name ?></h5>
                     <div class="d-flex flex-row">
@@ -361,7 +369,7 @@ while($row1= mysqli_fetch_array($result))
                     <br>
                     <div class="mt-1 mb-1 spec-1"><span><?php echo $product_location?></span><span class="dot"></span></div>
                     <div class="mt-1 mb-1 spec-1"><span><?php echo $product_address ?></span><span class="dot"></span></div>   
-                    <div class="mt-1 mb-1 spec-1"><a href=""><span>Chat with seller</span><span class="dot"></span></a></div>                   
+                    <div class="mt-1 mb-1 spec-1"><a href="something.php?to=<?php echo $seller_id ?>"><span>Chat with seller</span><span class="dot"></span></a></div>                   
                      
                 </div>
                 <div class="align-items-center align-content-center col-md-3 border-left mt-1">

@@ -91,7 +91,7 @@ body {
                 <div class="row mt-3">
                     <div class="col-md-12"><label class="labels">Name<span id="name_error"></span></label><input type="text" class="form-control" name="name" id="name" placeholder="Enter Name" maxlength = "20" required ></div>
                     <div class="col-md-12"><label class="labels">Category<span id="category_error"></span></label><select type="text" class="form-control" name="category" maxlength = "10" id="register_category" placeholder=" Choose Category" required  >
-                        <option disabled selected value="base"> Select a category</option>
+                        <option disabled selected > Select a category</option>
                         <?php 
                          $sql="SELECT * from product_category ";
                          $result=(mysqli_query($conn, $sql));
@@ -111,7 +111,7 @@ body {
                     <div class="col-md-12"><label class="labels">Location<span id="location_error"></span></label><input type="text" maxlength = "40" class="form-control" name="location" id="location" placeholder=" Enter Location " required  ></div>       
                     
                     <div class="col-md-12"><label class="labels">Address<span id="address_error"></span></label><input type="text"  maxlength = "40"class="form-control" name="address" id="address" placeholder=" Enter Address "  required ></div>       
-                    <div class="col-md-12 labels"><label>Description<span id="description_error"></span></label><textarea rows="5" type="text" maxlength = "200" class="form-control" id="description" name="description" placeholder="Description" value="" required></textarea></div>
+                    <div class="col-md-12 labels"><label>Description<span id="description_error"></span></label><textarea rows="5" type="text" maxlength = "200" class="form-control" id="description" name="description" placeholder="Description"  required></textarea></div>
 
                 </div>
 

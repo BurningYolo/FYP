@@ -173,7 +173,11 @@ if($func=="product_register")
      for($i=0 ; $i<$h ; $i++)
      {
       
-             $heading[$i]= $_POST['heading'.$i.'']; 
+             $heading[$i]= $_POST['heading'.$i.''] ; 
+             if($heading[$i]==" " || $heading[$i] == null)
+             {
+                $heading[$i] = 0 ; 
+             }
 
              $sql =  "INSERT INTO product_additional_info (product_id, heading ,details) VALUES ('$last_id' , '$details[$i]','$heading[$i]')"; 
              mysqli_query($conn,$sql); 
@@ -571,12 +575,16 @@ if($func == "delete_product")
             $sql4 = "DELETE from product_images where product_id = '$product_id'" ; 
             if(mysqli_query($conn, $sql4))
             {
+                $sql5 = "DELETE from product_verification where product_id = '$product_id' " ; 
+                if(mysqli_query($conn,$sql5))
+                {
             $sql2 = "DELETE from product_info where id ='$product_id'" ; 
             if(mysqli_query($conn, $sql2))
             {
                 echo "<script> location.href='/from_scratch/active_listing.php?delete_success=1'; </script>";
 
             }
+        }
         }
         }
     } 
