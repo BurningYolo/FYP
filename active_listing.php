@@ -5,6 +5,14 @@ if (isset($_SESSION['session'])) {
 }
 include("head.php");
 
+?>
+
+<?php 
+$very_good_exchange_rate_totally_not_added_manually=0.0045; 
+
+?>
+<?php
+
 $sql = "select * from product_info where user_id = '$id' ";
 $result = (mysqli_query($conn, $sql));
 ?>
@@ -507,7 +515,7 @@ if (isset($_GET['delete_error'])) {
                                                                 return actions.order.create({
                                                                     purchase_units: [{
                                                                         amount: {
-                                                                            value: '<?php echo $product_starting_price ?>'
+                                                                            value: '<?php echo $product_starting_price * $very_good_exchange_rate_totally_not_added_manually ?>'
                                                                         }
                                                                     }]
                                                                 });
