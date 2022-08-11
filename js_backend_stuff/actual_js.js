@@ -73,9 +73,21 @@ function choosewinner(id){
         }, 
         success:function(result)
         {
-            console.log(result) 
+            alert("Winner has been choosen") ; 
+            var templateParams = {
+                buyer_email: 'hishamzahid123@gmail.com',
+                buyer: 'Hisham Zahid'
+            };
+             
+            emailjs.send("service_q59dnub","template_wtejdxr", templateParams , "Cw95nl4PTt9tzdwhD")
+                .then(function(response) {
+                   console.log('SUCCESS!', response.status, response.text);
+                }, function(error) {
+                   console.log('FAILED...', error);
+                });
 
-            // email to winner 
+
+            
            
         }
       

@@ -4,6 +4,7 @@ if(isset($_SESSION['session']))
 {
     $id=$_SESSION['session']; 
 }
+include("error.php");
 include("head.php"); 
 
 
@@ -27,6 +28,12 @@ if ($result->num_rows>0 ){
 
 
     }
+
+
+}
+else 
+{
+  echo "stop inputting random produt id you ape " ; 
 }
 
 
@@ -349,8 +356,24 @@ if(isset($_GET['update_error']))
                              }
                              ?>
                             <hr>
+<?php
+if($product_approval == 0)
 
+                            {
+                            ?>
 
+<center><h3 style="background-color:red; color:white; ">NOT APPROVED BY ADMIN</h3></center>
+<?php
+                            }
+                            else 
+                            {
+                              ?>
+                              <center><h3 style="background-color:green; color:white; ">APPROVED</h3></center>
+
+                              
+                              <?php
+                            }
+                            ?>
 
 					
 						<div class="action">

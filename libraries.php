@@ -31,3 +31,6 @@
 <script src="js_backend_stuff/validation.js"></script>
 <script src="js_backend_stuff/popup.js"></script>
 
+<script
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
+</script>

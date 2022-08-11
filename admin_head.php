@@ -61,19 +61,7 @@
               </ul>
 	          </li>
 	          <li>
-              <a href="#ageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Category Management</a>
-              <ul class="collapse list-unstyled" id="ageSubmenu">
-                <li>
-                    <a href="user_management.php?data=category">Category List</a>
-                </li>
-                <li>
-                <a data-toggle="modal" data-target="#add_category_modal">Add Category </a>
-                </li>
-              </ul>
-	          </li>
-	          <li>
-              <a href="#">Blablobli</a>
-	          </li>
+           
 
 	        </ul>
     	</nav>

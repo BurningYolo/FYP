@@ -13,7 +13,6 @@ if(!isset($_SESSION['session']))
 
 body {
     background: #B0BEC5; 
-    background-image: url('images/logos&stuff/bg-1.jpg');
     background-size: 100% 100%;
 }
 .input_image

@@ -14,7 +14,6 @@ body {
     overflow-x: hidden;
     height: 100%;
     background-color: #B0BEC5;
-    background-image: url('images/logos&stuff/bg-1.jpg');
     background-size: 100% 100%;
 }
 
@@ -275,13 +274,7 @@ unset($_GET['logout']);
                         <label class="mb-1"><h6 class="mb-0 text-sm">Password</h6></label>
                         <input id="password" type="password" name="password" placeholder="Enter password" required>
                     </div>
-                    <div class="row px-3 mb-4">
-                        <div class="custom-control custom-checkbox custom-control-inline">
-                            <input id="chk1" type="checkbox" name="chk" class="custom-control-input"> 
-                            <label for="chk1" class="custom-control-label text-sm">Remember me</label>
-                        </div>
-                        <a href="#" class="ml-auto mb-0 text-sm">Forgot Password?</a>
-                    </div>
+                   
                     <div class="row mb-3 px-3">
                         <button type="submit" class="btn btn-blue text-center" >Login</button>
                     </div>

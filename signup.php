@@ -14,7 +14,6 @@ body {
     color: #000;
     overflow-x: hidden;
     height: 100%;
-    background-image: url('images/logos&stuff/bg-1.jpg');
     background-size: 100% 100%;
    
 }
