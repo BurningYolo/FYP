@@ -60,7 +60,23 @@
                 </li>
               </ul>
 	          </li>
-	          <li>
+
+            <li>
+              <a href="#category" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Category Management</a>
+              <ul class="collapse list-unstyled" id="category">
+                <li>
+                    <a href="admin_categorylist.php"">Category List</a>
+                </li>
+                <li>
+                <a  href="admin_addcategory.php">Add Category </a>
+                </li>
+
+                <li>
+                <a  href="admin_adduser.php">Add Tags to Category </a>
+                </li>
+              </ul>
+	          </li>
+	        
            
 
 	        </ul>

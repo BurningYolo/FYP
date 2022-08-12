@@ -336,6 +336,71 @@ if($func == "product_reject")
 }
 
 
+if($func == "add_category")
+{
+    $category_name = $_POST['category_name'] ; 
+
+    $sql = "INSERT into product_category (category) values ('$category_name')" ; 
+    if(mysqli_query($conn,$sql))
+    {
+        echo '<script> alert(" Category Successfully Listed")</script>';
+        echo "<script> location.href='/from_scratch/admin_categorylist.php'; </script>"; 
+        
+    }
+    else 
+    {
+        echo '<script> alert(" Error Listing Category")</script>';
+        echo "<script> location.href='/from_scratch/admin_categorylist.php'; </script>"; 
+
+
+    }
+
+}
+
+if($func == "delete_category")
+{
+
+    $id = $_GET['id'];
+    $sql = "DELETE from product_additional_info_tags where product_category_id = '$id'" ; 
+    if(mysqli_query($conn,$sql))
+    {
+        $sql1 = "DELETE from product_info where product_category_id = '$id'" ; 
+        if(mysqli_query($conn,$sql1))
+        {
+           $sql2 = "DELETE from product_category where id = '$id'"; 
+           if(mysqli_query($conn,$sql2))
+           {
+            echo '<script> alert(" Category Deleted Successfully")</script>';
+            echo "<script> location.href='/from_scratch/admin_categorylist.php'; </script>";
+    
+
+           }
+           else 
+           {
+            
+            echo '<script> alert(" Error Deleting Category ")</script>';
+            echo "<script> location.href='/from_scratch/admin_categorylist.php'; </script>";
+    
+
+           }
+
+        }
+        else 
+        {
+            echo '<script> alert(" Error Deleting Category ")</script>';
+            echo "<script> location.href='/from_scratch/admin_categorylist.php'; </script>";
+    
+
+        }
+    }
+    else 
+    {
+        echo '<script> alert(" Error Deleting Category ")</script>';
+        echo "<script> location.href='/from_scratch/admin_categorylist.php'; </script>";
+
+    }
+}
+
 
    
 
