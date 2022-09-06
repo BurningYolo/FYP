@@ -462,7 +462,7 @@ if($product_approval == 0)
 
         
 
-       <div class="col-md-12 p-4"><label class="labels">Enter the Amount you want to bid</label><span hidden style="color:red" id="bid_amount_error">I(nvalid Bid Amount) </span><input type="number" min-value="1" class="form-control" name="bid_amount" id="bid_amount" placeholder="Please Enter Bid Amount" required ></input></div>
+       <div class="col-md-12 p-4"><label class="labels">Enter the Amount you want to bid</label><span hidden style="color:red" id="bid_amount_error">(Invalid Bid Amount) </span><input type="number" min-value="1" class="form-control" name="bid_amount" id="bid_amount" placeholder="Please Enter Bid Amount" required ></input></div>
        <div class="col-md-12 p-2"><label class="labels">Please Select Your Payment method</label></div>
        <div class="col-md-12 p-2"><input type="checkbox" id="credit_card1" name="credit_card1" value="1">Credit card</div>
        <div class="col-md-12 p-2"><input type="checkbox" id="paypal1" name="paypal1" value="1">Paypal</div>

@@ -419,7 +419,24 @@ if($func == "place_bid")
 
 
 
+if($func == "password_change") 
+{
+    $change_id = $_POST['id'] ; 
+    $change_pass = $_POST ['password'] ; 
+    $hashed=password_hash($change_pass,PASSWORD_BCRYPT);  
+    $sql = "UPDATE user_info set pass = '$hashed' where id = '$change_id' " ; 
+    if(mysqli_query($conn,$sql))
+    {
+        echo "<script> location.href='/from_scratch/login.php?password_change=1'; </script>";
 
+    }
+    else 
+    {
+        echo "<script> location.href='/from_scratch/login.php?password_change_error=1'; </script>";
+
+    }
+
+}
 
 
 
@@ -462,6 +479,54 @@ if($ajax_func == "notification")
         echo json_encode($result);
     }
 }
+
+if($ajax_func == "password_verify_email")
+{
+    $email = $_POST['email'] ; 
+
+   
+
+    $sql = "Select * from user_info where email = '$email'" ; 
+
+    $result=(mysqli_query($conn, $sql)); 
+
+    if ($result->num_rows == 0 ) {
+
+        $arr = array(
+            "value"=>0,
+            "link"=>0
+        ); 
+        echo json_encode($arr);
+
+    
+        }
+        else 
+        {
+            $result = 1 ; 
+            // $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            // $charactersLength = strlen($characters);
+            // $randomString = '';
+            // for ($i = 0; $i < 16; $i++) {
+            //     $randomString .= $characters[rand(0, $charactersLength - 1)];
+            // }
+            // $result= "http://localhost/from_scratch/login.php?" ; 
+            $link = random_str(64);
+
+            $arr = array(
+                "value"=>1,
+                "link"=>$link
+            ); 
+
+            $sql = "Update user_info set password_request = '$link' where email = '$email' " ; 
+            if(mysqli_query($conn,$sql))
+            {
+
+            echo json_encode($arr); 
+        }
+    }
+            
+}
+
 
 if($ajax_func == "get_chat" )
 {
@@ -545,7 +610,20 @@ if($ajax_func == "winner")
 
 
 
-
+function random_str(
+    int $length = 64,
+    string $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+): string {
+    if ($length < 1) {
+        throw new \RangeException("Length must be a positive integer");
+    }
+    $pieces = [];
+    $max = mb_strlen($keyspace, '8bit') - 1;
+    for ($i = 0; $i < $length; ++$i) {
+        $pieces []= $keyspace[random_int(0, $max)];
+    }
+    return implode('', $pieces);
+}
 
 
 
@@ -592,3 +670,5 @@ if($func == "delete_product")
 
     }
 }
+
+

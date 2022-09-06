@@ -5,6 +5,7 @@ function login_validation()
 
 function signup_validation()
 {
+    x = true ; 
     var username= document.getElementById("username").value ; 
     var usernamelength = username.length ; 
     var email = document.getElementById("email").value ; 
@@ -23,7 +24,7 @@ function signup_validation()
         document.getElementById("username").focus() ;
         document.getElementById("username_error").innerHTML = "(Enter a Valid Username)";
         document.getElementById("username").style.border = "solid 1px red"; 
-        return false; 
+        x =  false; 
     }
     if(email.match(mailformat))
     {
@@ -37,7 +38,7 @@ function signup_validation()
         document.getElementById("email").focus() ;
         document.getElementById("email_error").innerHTML = "(Enter a Valid Email Address)";
         document.getElementById("email").style.border = "solid 1px red"; 
-        return false; 
+        x =  false; 
      
     
     }
@@ -48,7 +49,7 @@ function signup_validation()
         document.getElementById("password_error").innerHTML = "(Password too weak)";
         document.getElementById("password").style.border = "solid 1px red"; 
         
-        return false; 
+        x =  false; 
        
     }
 
@@ -57,8 +58,10 @@ function signup_validation()
         console.log("password doesen't match") 
         document.getElementById("password_error").innerHTML = "(Password dosen't match)";
         document.getElementById("password").focus() ;
-        return false ; 
+        x =  false ; 
     }
+
+    return x ; 
     
 
     
@@ -108,7 +111,7 @@ function update_profile_validation()
         document.getElementById("mobile").style.border = "solid 1px red"; 
         return false; 
 
-    }
+    } 
 
 
 }

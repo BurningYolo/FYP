@@ -1,10 +1,25 @@
-<?php
-session_start(); 
-if(isset($_SESSION['session']))
-{
-    $id=$_SESSION['session']; 
-}
-include("head.php"); 
+<?php 
+include("php_backend_stuff/connection.php") ; 
+ include("libraries.php") ; 
+ 
+ $password_change = $_GET['password_change'] ?? "1" ; 
+
+ if($password_change != 1)
+ {
+    $sql  = "Select * from user_info where password_request = '$password_change' " ; 
+    $x=(mysqli_query($conn,$sql));
+    while($row=mysqli_fetch_array($x))
+    {
+        $id = $row['id'] ; 
+        $email = $row['email'] ; 
+
+    } 
+
+
+    
+
+ 
+
 
 ?>
 
@@ -202,46 +217,6 @@ unset($_GET['account_created']);
 }
 ?>
 
-
-
-
-
-
-
-
-<?php 
-if(isset($_GET['password_change']))
-{
-?>
-<div class="signup_success" id="signup_success">
-    <p>Password Successfully Updated </p>
-
-</div>
-<?php 
-unset($_GET['password_change']); 
-}
-?>
-
-
-
-<?php 
-if(isset($_GET['password_change_error']))
-{
-?>
-<div class="login_unsuccess" id="login_unsuccess">
-    <p>Error Updating Password please try again later </p>
-
-</div>
-<?php 
-unset($_GET['password_change_error']); 
-}
-?>
-
-
-
-
-
-
 <?php 
 if(isset($_GET['need_login']))
 {
@@ -299,33 +274,28 @@ unset($_GET['logout']);
             <div class="col-lg-6">
                 <div class="card2 card border-0 px-4 py-5">
                     <div class="row mb-4 px-3">
-                        <h3 style="color: green;"class="mb-0 mr-4 mt-2">Login to EasyAuction</h3>
+                        <h3 style="color: green;"class="mb-0 mr-4 mt-2">Reset Your Password </h3>
                     </div>
                     <div class="row px-3 mb-4">
                         <div class="line"></div>
                        
                     </div>
-                    <form name="login_form" method="POST" action="php_backend_stuff/backend.php?func=login">
+                    <form name="login_form" method="POST" action="php_backend_stuff/backend.php?func=password_change" onsubmit="return(password_verification())">
                     <div class="row px-3">
-                        <label class="mb-1"><h6 class="mb-0 text-sm">Email Address</h6></label>
-                        <input class="mb-4" id="email" type="email" name="email" placeholder="Enter a valid email address" required>
+                        <label class="mb-1"><h6 class="mb-0 text-sm">New Password   <span style="color :red " id="password_error"> </span> </h6></label>
+                        <input class="mb-4" id="email" type="password" name="email" placeholder="Enter a new Password" required>
                     </div>
                     <div class="row px-3">
-                        <label class="mb-1"><h6 class="mb-0 text-sm">Password</h6></label>
+                        <label class="mb-1"><h6 class="mb-0 text-sm">Re Type Password </h6></label>
                         <input id="password" type="password" name="password" placeholder="Enter password" required>
                     </div>
+                    <input class="mb-4" id="" type="text" value=" <?php echo $id ?>" hidden  name="id" placeholder="Enter a new Password" required>
                    
                     <div class="row mb-3 px-3">
-                        <button type="submit" class="btn btn-blue text-center" >Login</button>
+                        <button type="submit" class="btn btn-blue text-center" >Change Password </button>
                     </div>
                 </form>
-                    <div class="row mb-4 px-3">
-                        <small class="font-weight-bold">Don't have an account? <a href="signup.php"class="text-success ">Register</a></small>
-                        <Br>
-                        <br>
-
-                        <small class="font-weight-bold">Forgot Password ?   <button  data-toggle="modal" data-target="#place_bid_amount"  class="text-success " type="button" style="border: transparent; text-decoration: underline; " >Click here </button></small>
-                    </div>
+                
                 </div>
             </div>
         </div>
@@ -340,102 +310,48 @@ unset($_GET['logout']);
     </div>
 </div>
 
+<?php 
+ }
+ else 
+ {
+    echo "Passowrd Change request not submitted" ; 
+ }
 
-
-
-
-<div id="place_bid_amount" class="modal fade">
- <div class="modal-dialog">
-  <div class="modal-content">
-   <div class="modal-header">
-  <center><h4 class="modal-title">Please Enter your email linked to the account  </h4></center>
-    <button type="button" class="close" data-dismiss="modal">&times;</button>
-    
-   </div>
-   <div class="modal-body">
-<center><div id="email_1" ></div></center>
-
-      <label class="mb-1"><h6 class="mb-0 text-sm">Email Address<span style="color: red"> </span></h6></label>
-     <input style="width: 100% ;" class="mb-4" id="email_for_pass" type="email" name="email" placeholder="Enter a valid email address" required>
-       
-       <center><input class="btn btn-success" type="button" value="Submit" onclick="password_verify_email()" ></center>
-       
-    </form>
-  
-   <div class="modal-footer">
-    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-   </div>
-  </div>
- </div>
-</div>
+?>
 
 <script>
-
-    function password_verify_email()
+    function password_verification()
     {
-        var email = document.getElementById("email_for_pass").value 
-        var link = "http://localhost/from_scratch/password_change.php?password_change="; 
-        console.log(email) 
+    var password = document.getElementById("email").value ; 
+    var repassword = document.getElementById("password").value ; 
+    var passwordlength = password.length ; 
 
-        $.ajax({
-    url:'php_backend_stuff/backend.php',
-    type:"POST", 
-    data:{
-     
-     ajax_func:"password_verify_email",
-     email:email 
+    x = true ; 
 
-
-    }, 
-    success:function(result)
+    if(passwordlength <= 6 ) 
     {
-        console.log(result) 
-        var result = JSON.parse(result) 
-        if(result.value == 0 )
-        {
-            document.getElementById("email_1").style.backgroundColor="red" ; 
-            document.getElementById("email_1").style.color="white" ; 
-            document.getElementById("email_1").style.height="auto" ; 
-            document.getElementById("email_1").style.width="100%" ; 
-            document.getElementById("email_1").innerHTML="Please Enter Valid Email"
-
-
-            
-        }
-        else if (result.value == 1)
-        {
-            document.getElementById("email_1").style.backgroundColor="green" ; 
-            document.getElementById("email_1").style.color="white" ; 
-            document.getElementById("email_1").style.height="auto" ; 
-            document.getElementById("email_1").style.width="100%" ; 
-            document.getElementById("email_1").innerHTML="Please view your email for Password change"; 
-            var change_link = link.concat(result.link);
-            console.log(change_link)
-
-
-
+        console.log("passwordlength too low"); 
+        document.getElementById("email").focus() ;
+        document.getElementById("password_error").innerHTML = "(Password too weak)";
+        document.getElementById("email").style.border = "solid 1px red"; 
         
-        var params = 
-        {
-           to_email : email , 
-           link : change_link , 
-        }
-        emailjs.send("service_q59dnub","template_vw5t59m", params , "Cw95nl4PTt9tzdwhD").then(function(response) {
-       console.log('SUCCESS!', response.status, response.text);
-    }, function(error) {
-       console.log('FAILED...', error);
-    });
-    
-
-
-
+        x =  false; 
+       
     }
-        
+
+    if(password != repassword)
+    {
+        console.log("password doesen't match") 
+        document.getElementById("password_error").innerHTML = "(Password dosen't match)";
+        document.getElementById("email").focus() ;
+        document.getElementById("email").style.border = "solid 1px red"; 
+        x =  false ; 
     }
-})
+    return x ; 
     }
 
 
 
-    
-</script>
+    </script>
+
+
