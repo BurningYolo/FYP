@@ -15,6 +15,7 @@ if(isset($_SESSION['session']))
         $mobile = $row['mobile']; 
         $image = $row['image']; 
         $details = $row['details']; 
+        $verified = $row['verified'] ; 
 
 
         
@@ -155,7 +156,10 @@ unset ($_GET['email_present']);
                 </div>
                 <div class="row mt-3">
                     <div class="col-md-12"><label class="labels">UserName<span id="username_error"></span></label><input type="text" class="form-control" name="username" id="username" placeholder="enter UserName" value="<?php echo $name ?>" required></div>
-                    <div class="col-md-12"><label class="labels">Email<span id="email_error"></span></label><input type="email" class="form-control" name="email" id="email" placeholder="enter Email" value="<?php echo $email?>" required></div>
+                    <div class="col-md-12"><label class="labels">Email<span id="email_error"></span></label><input type="email" class="form-control" name="email" id="email" placeholder="enter Email" value="<?php echo $email?>" readonly required>
+                    
+                
+                </div>
                     <div class="col-md-12"><label class="labels">Mobile No. <span id="mobile_error"></span></label><input type="tel" pattern="[0-3]{2}[0-9]{9}" name="mobile" class="form-control" id="mobile" required placeholder="03xxxxxxxxx" value="<?php echo $mobile?>" ></div>
                
                 </div>
@@ -170,9 +174,28 @@ unset ($_GET['email_present']);
     </form>
         </div>
     </div>
+    <?php 
+    if($verified != 1)
+    {
+
+    ?>
+    <button class="btn-sm btn-success" style="margin-top: 10px;" id="verify_button" onclick="email_verify()">Verify Email</button>
+    <?php 
+    }
+    else 
+    {
+        ?>
+        <center><div class="sm bg-success" style="margin-top: 10px; color:white" >Email has been verified</div></center>
+
+
+        <?php 
+    }
+    ?>
+
 </div>
 </div>
 </div>
+<center><div id="bruh" style="background-color: green; color:white ; width:500px ; height:auto ; display:none" > Verify Link has been sent to your email. </div></center>
 <?php 
 }
 else 
@@ -180,3 +203,54 @@ else
     echo "<script> location.href='/from_scratch/login.php'; </script>";
 }
 ?>
+
+<script>
+
+
+    function email_verify()
+    {
+        var email = document.getElementById("email").value; 
+        console.log(email) 
+        var link = "http://localhost/from_scratch/email_verify.php?email_change="; 
+        console.log(email) 
+
+        $.ajax({
+    url:'php_backend_stuff/backend.php',
+    type:"POST", 
+    data:{
+     
+     ajax_func:"email_verify_email",
+     email:email 
+
+
+    }, 
+    success:function(result)
+    { 
+        var result = JSON.parse(result) 
+        var change_link = link.concat(result);
+        console.log(result) 
+        console.log(change_link)
+
+        var params = 
+        {
+           to_email : email , 
+           link : change_link , 
+        }
+        emailjs.send("service_q59dnub","template_pemfkbc", params , "Cw95nl4PTt9tzdwhD").then(function(response) {
+       console.log('SUCCESS!', response.status, response.text);
+      document.getElementById('bruh').style.display = "block"
+
+    }, function(error) {
+       console.log('FAILED...', error);
+    });
+    }
+
+    })
+
+    
+}
+    
+
+
+
+</script>

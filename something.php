@@ -1,5 +1,6 @@
 
     <?php
+     include("loader.php") ; 
 session_start(); 
 if(isset($_SESSION['session']))
 {
@@ -14,6 +15,7 @@ while($row = mysqli_fetch_array($result))
     $id_image = $row['image']; 
     $id_name = $row['name']; 
     $id_email=$row['email']; 
+   
 }
 $sql="Select * from user_info where id = '$to'"; 
 $result=(mysqli_query($conn,$sql));
@@ -24,6 +26,7 @@ while($row = mysqli_fetch_array($result))
     $to_email=$row['email']; 
     $to_description=$row['details']; 
     $to_mobile = $row['mobile']; 
+  
 }
 
 
@@ -121,9 +124,7 @@ body {
                    <span><?php echo $to_email ?></span>
 
                    <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
-                   <?php if($to_description == " ")
-                    {
-                      ?>
+                
                     <div class="d-flex flex-column">
 
                   
@@ -134,58 +135,34 @@ body {
                         <span class="number1"><?php echo $to_description ?></span>
                         
                     </div>
-                    <?php 
-                    }
-                    else 
-                    {
-                      ?>
-                        <div class="d-flex flex-column">
+              
 
                   
 
                     
 
-<span class="articles">Description</span>
-<span class="number1">No description given by the user</span>
 
-</div>
-<?php
-                    }
-     ?>               
+             
                    </div>
-                   <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
+                   <div class="p-2 mt-2 bg-primary d-flex  rounded text-white stats ">
 
-                   <?php if($to_mobile == " ")
-                    {
-                      ?>
-                    <div class="d-flex flex-column">
+              
+                    <div class="d-flex flex-column" style="width: 100%;">
 
                   
 
                     
 
                         <span class="articles">Mobile no.</span>
-                        <span class="number1"><?php echo $$to_mobile ?></span>
+                        <span class="number1"><?php echo $to_mobile ?></span>
                         
                     </div>
-                    <?php 
-                    }
-                    else 
-                    {
-                      ?>
+                 
                   
-                        <div class="d-flex flex-column">
-
-                  
-
-                    
-
-<span class="articles">Mobile no.</span>
-<span class="number1">No mobile number is linked to user account</span>
-
-</div>
+               
+        
 <?php
-                    }
+                  
                     
      ?>   
                    </div>

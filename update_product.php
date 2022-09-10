@@ -1,4 +1,5 @@
 <?php 
+ include("loader.php") ; 
 session_start(); 
 include("head.php");
 if(!isset($_SESSION['session']))

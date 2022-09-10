@@ -480,6 +480,33 @@ if($ajax_func == "notification")
     }
 }
 
+
+if($ajax_func == "email_verify_email")
+{
+    $email = $_POST['email'] ; 
+    $link = random_str(64);
+    $sql = "Update user_info set email_request  = '$link' where email = '$email'" ; 
+    if(mysqli_query($conn,$sql))
+    {
+
+    echo json_encode($link); 
+}
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
 if($ajax_func == "password_verify_email")
 {
     $email = $_POST['email'] ; 
