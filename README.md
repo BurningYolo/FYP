@@ -1,5 +1,5 @@
 # FYP
-FYP project I guess
+Easy Auctions
 
 :) 
 
